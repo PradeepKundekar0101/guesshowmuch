@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server"
-import { createSSRServerClient } from "@/lib/supabase/server"
-
-// Note: We need a separate function here that works with NextRequest
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 
