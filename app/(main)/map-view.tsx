@@ -5,6 +5,7 @@ import { MapContainer } from "@/components/map/MapContainer"
 import { PriceFilter } from "@/components/filters/PriceFilter"
 import { SearchBar } from "@/components/shared/SearchBar"
 import { RestaurantPreview } from "@/components/map/RestaurantPreview"
+import { FloatingSubmitButton } from "@/components/navigation/FloatingSubmitButton"
 import type { Restaurant } from "@/lib/types/database"
 
 type MapViewProps = {
@@ -39,6 +40,7 @@ export function MapView({ restaurants }: MapViewProps) {
   return (
     <div className="relative h-dvh w-full overflow-hidden pb-14">
       <SearchBar onSelect={handleSearchSelect} />
+      <FloatingSubmitButton />
 
       <MapContainer
         restaurants={restaurants}

@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { PlaceholderImage } from "@/components/shared/PlaceholderImage"
+import { BookmarkButton } from "@/components/bookmark/BookmarkButton"
 import { formatPrice } from "@/lib/utils/price"
 import { getVerificationStatus } from "@/lib/utils/price"
 import type { Restaurant } from "@/lib/types/database"
@@ -44,9 +45,12 @@ export function RestaurantPreview({ restaurant, onClose }: RestaurantPreviewProp
 
           {/* Info */}
           <div className="min-w-0 flex-1">
-            <h3 className="truncate text-base font-bold text-gray-900">
-              {restaurant.name}
-            </h3>
+            <div className="flex items-start justify-between">
+              <h3 className="truncate text-base font-bold text-gray-900">
+                {restaurant.name}
+              </h3>
+              <BookmarkButton restaurantId={restaurant.id} size="sm" />
+            </div>
             <p className="mt-0.5 text-sm text-gray-500">
               {restaurant.cuisine_type} · {restaurant.suburb}
             </p>
