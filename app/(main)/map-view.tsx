@@ -37,7 +37,7 @@ export function MapView({ restaurants }: MapViewProps) {
   }, [])
 
   return (
-    <div className="relative h-dvh w-full overflow-hidden">
+    <div className="relative h-dvh w-full overflow-hidden pb-14">
       <SearchBar onSelect={handleSearchSelect} />
 
       <MapContainer

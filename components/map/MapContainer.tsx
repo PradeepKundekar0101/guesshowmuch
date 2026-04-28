@@ -141,7 +141,7 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
 
       <button
         onClick={handleRecenter}
-        className="absolute bottom-28 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-gray-50"
+        className="absolute bottom-40 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-gray-50"
         aria-label="Re-center on my location"
       >
         <span className="text-lg">📍</span>

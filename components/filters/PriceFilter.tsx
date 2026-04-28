@@ -30,7 +30,7 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
   )
 
   return (
-    <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-2xl bg-white/95 px-3 py-2.5 shadow-lg backdrop-blur-sm">
+    <div className="absolute bottom-16 left-3 right-3 flex items-center gap-2 rounded-2xl bg-white/95 px-3 py-2.5 shadow-lg backdrop-blur-sm">
       {PRESETS.map((preset) => (
         <button
           key={preset}
