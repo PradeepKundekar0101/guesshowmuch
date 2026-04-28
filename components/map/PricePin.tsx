@@ -1,44 +1,49 @@
 import { formatPrice } from "@/lib/utils/price"
 
-const PIN_COLORS = {
+const PIN_COLORS: Record<string, string> = {
   standard: "#10b981",
   featured: "#f59e0b",
   hot_deal: "#ef4444",
   top_rated: "#8b5cf6",
-} as const
+}
 
 export function createPricePinElement(
   price: number,
   isActive: boolean = false,
   pinType: string = "standard"
 ): HTMLElement {
-  const baseColor = PIN_COLORS[pinType as keyof typeof PIN_COLORS] || PIN_COLORS.standard
-  const activeColor = "#f59e0b"
-  const color = isActive ? activeColor : baseColor
+  const baseColor = PIN_COLORS[pinType] || PIN_COLORS.standard
+  const color = isActive ? "#0d9488" : baseColor
 
   const wrapper = document.createElement("div")
-  wrapper.className = "price-pin-wrapper"
-  wrapper.style.cursor = "pointer"
+  wrapper.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: max-content;
+  `
 
   const pin = document.createElement("div")
   pin.style.cssText = `
     background: ${color};
     color: white;
-    padding: 4px 10px;
-    border-radius: 16px;
+    padding: 5px 10px;
+    border-radius: 20px;
     font-weight: 700;
-    font-size: 13px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-size: 12px;
+    font-family: system-ui, -apple-system, sans-serif;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     white-space: nowrap;
-    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+    transition: transform 0.15s ease;
     transform: ${isActive ? "scale(1.15)" : "scale(1)"};
+    border: 2px solid ${isActive ? "white" : "transparent"};
+    line-height: 1;
   `
-  pin.textContent = formatPrice(price)
 
-  // Add star for featured pins
-  if (pinType === "featured" && !isActive) {
-    pin.textContent = `⭐ ${formatPrice(price)}`
-  }
+  const label = pinType === "featured" && !isActive ? `★ ${formatPrice(price)}` : formatPrice(price)
+  pin.textContent = label
 
   const arrow = document.createElement("div")
   arrow.style.cssText = `
@@ -47,8 +52,7 @@ export function createPricePinElement(
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid ${color};
-    margin: 0 auto;
-    transition: border-top-color 0.2s;
+    margin-top: -1px;
   `
 
   wrapper.appendChild(pin)

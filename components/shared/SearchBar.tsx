@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useCallback, useRef } from "react"
+import { Search, X } from "lucide-react"
 
 type SearchResult = {
   place_name: string
@@ -63,11 +64,17 @@ export function SearchBar({ onSelect }: SearchBarProps) {
     [onSelect]
   )
 
+  const handleClear = useCallback(() => {
+    setQuery("")
+    setResults([])
+    setIsOpen(false)
+  }, [])
+
   return (
     <div className="absolute left-3 right-3 top-3 z-10">
       <div className="relative">
-        <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-md">
-          <span className="text-gray-400">🔍</span>
+        <div className="flex items-center gap-2.5 rounded-xl border border-gray-100 bg-white px-3.5 py-2.5 shadow-lg">
+          <Search size={16} className="shrink-0 text-gray-400" />
           <input
             type="text"
             value={query}
@@ -76,15 +83,20 @@ export function SearchBar({ onSelect }: SearchBarProps) {
             placeholder="Search suburb or area..."
             className="flex-1 bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400"
           />
+          {query && (
+            <button onClick={handleClear} className="shrink-0 text-gray-300 hover:text-gray-500">
+              <X size={16} />
+            </button>
+          )}
         </div>
 
         {isOpen && (
-          <div className="absolute left-0 right-0 top-full mt-1 overflow-hidden rounded-2xl bg-white shadow-lg">
+          <div className="absolute left-0 right-0 top-full mt-1.5 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl">
             {results.map((result, i) => (
               <button
                 key={i}
                 onClick={() => handleSelect(result)}
-                className="block w-full px-4 py-3 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                className="block w-full border-b border-gray-50 px-4 py-3 text-left text-sm text-gray-700 transition-colors last:border-0 hover:bg-gray-50"
               >
                 {result.place_name}
               </button>

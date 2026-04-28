@@ -18,7 +18,6 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
   const markersRef = useRef<Map<string, mapboxgl.Marker>>(new Map())
   const [activeId, setActiveId] = useState<string | null>(null)
 
-  // Initialize map
   useEffect(() => {
     if (!mapContainerRef.current) return
 
@@ -37,16 +36,14 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/streets-v12",
+      style: "mapbox://styles/mapbox/light-v11",
       center,
       zoom: DEFAULT_ZOOM,
     })
 
-    map.addControl(new mapboxgl.NavigationControl(), "top-right")
-
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right")
     mapRef.current = map
 
-    // Listen for fly-to events from search bar
     const handleFlyTo = (e: Event) => {
       const { center } = (e as CustomEvent).detail
       map.flyTo({ center, zoom: DEFAULT_ZOOM })
@@ -61,39 +58,45 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
     }
   }, [])
 
-  // Manage markers based on restaurants and price filter
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
 
     const currentMarkers = markersRef.current
+    const visibleIds = new Set<string>()
 
-    // Remove markers that are filtered out
+    // Determine visible restaurants
+    restaurants
+      .filter((r) => r.price <= maxPrice)
+      .forEach((restaurant) => {
+        visibleIds.add(restaurant.id)
+      })
+
+    // Remove markers no longer visible
     currentMarkers.forEach((marker, id) => {
-      const restaurant = restaurants.find((r) => r.id === id)
-      if (!restaurant || restaurant.price > maxPrice) {
+      if (!visibleIds.has(id)) {
         marker.remove()
         currentMarkers.delete(id)
       }
     })
 
-    // Add or update markers for visible restaurants
+    // Add or recreate markers
     restaurants
       .filter((r) => r.price <= maxPrice)
       .forEach((restaurant) => {
-        if (currentMarkers.has(restaurant.id)) {
-          const marker = currentMarkers.get(restaurant.id)!
-          const el = createPricePinElement(restaurant.price, restaurant.id === activeId, restaurant.pin_type)
-          el.addEventListener("click", () => {
-            setActiveId(restaurant.id)
-            onPinClick(restaurant)
-          })
-          marker.getElement().replaceWith(el)
-          return
+        const isActive = restaurant.id === activeId
+
+        // If marker exists and active state hasn't changed, skip
+        const existing = currentMarkers.get(restaurant.id)
+        if (existing) {
+          // Remove and recreate to update active state
+          existing.remove()
+          currentMarkers.delete(restaurant.id)
         }
 
-        const el = createPricePinElement(restaurant.price, restaurant.id === activeId, restaurant.pin_type)
-        el.addEventListener("click", () => {
+        const el = createPricePinElement(restaurant.price, isActive, restaurant.pin_type)
+        el.addEventListener("click", (e) => {
+          e.stopPropagation()
           setActiveId(restaurant.id)
           onPinClick(restaurant)
         })
@@ -141,10 +144,13 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
 
       <button
         onClick={handleRecenter}
-        className="absolute bottom-40 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-gray-50"
+        className="absolute bottom-40 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:bg-gray-50 hover:shadow-xl"
         aria-label="Re-center on my location"
       >
-        <span className="text-lg">📍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+        </svg>
       </button>
     </div>
   )

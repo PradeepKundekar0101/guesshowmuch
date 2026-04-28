@@ -1,20 +1,22 @@
 "use client"
 
+import { MapIcon, Tag, Users } from "lucide-react"
+
 type WelcomeScreenProps = {
   onContinue: () => void
 }
 
 const features = [
-  { icon: "🗺️", text: "Browse cheap eats on a live map" },
-  { icon: "🏷️", text: "Filter by price — $5, $8, $12, $15" },
-  { icon: "👥", text: "Community-verified prices" },
+  { icon: MapIcon, text: "Browse cheap eats on a live map" },
+  { icon: Tag, text: "Filter by price — $5, $8, $12, $15" },
+  { icon: Users, text: "Community-verified prices" },
 ]
 
 export function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center px-8 py-12 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-500 text-4xl">
-        💰
+      <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-500 shadow-lg shadow-emerald-200">
+        <span className="text-3xl font-extrabold text-white">$</span>
       </div>
 
       <h1 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -26,23 +28,23 @@ export function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
       </p>
 
       <div className="mt-8 w-full max-w-[280px] text-left">
-        {features.map((feature) => (
-          <div
-            key={feature.text}
-            className="flex items-center gap-3 py-2.5"
-          >
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-lg">
-              {feature.icon}
+        {features.map((feature) => {
+          const Icon = feature.icon
+          return (
+            <div key={feature.text} className="flex items-center gap-3 py-2.5">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50">
+                <Icon size={18} className="text-emerald-600" />
+              </div>
+              <span className="text-sm text-gray-600">{feature.text}</span>
             </div>
-            <span className="text-sm text-gray-600">{feature.text}</span>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       <div className="mt-10 w-full max-w-[280px]">
         <button
           onClick={onContinue}
-          className="w-full rounded-2xl bg-emerald-500 px-6 py-4 text-base font-bold text-white transition-colors hover:bg-emerald-600"
+          className="w-full rounded-2xl bg-emerald-500 px-6 py-4 text-base font-bold text-white shadow-lg shadow-emerald-200 transition-all hover:bg-emerald-600 active:scale-[0.98]"
         >
           Get Started
         </button>

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { ThumbsUp, ThumbsDown } from "lucide-react"
 import { getVote, setVote } from "@/lib/utils/local-storage"
 
 type VoteButtonsProps = {
@@ -43,41 +44,40 @@ export function VoteButtons({ restaurantId, initialScore }: VoteButtonsProps) {
 
   return (
     <div className="border-t border-gray-100 pt-6">
-      <h3 className="mb-2.5 text-sm font-semibold text-gray-900">
+      <h3 className="mb-3 text-sm font-semibold text-gray-900">
         Is this price still accurate?
       </h3>
       <div className="flex items-center gap-3">
         <button
           onClick={() => handleVote("up")}
           disabled={loading}
-          className={`flex flex-1 flex-col items-center rounded-xl py-3 transition-colors ${
+          className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all ${
             currentVote === "up"
-              ? "bg-emerald-100 ring-2 ring-emerald-500"
-              : "bg-gray-100 hover:bg-gray-200"
+              ? "bg-emerald-50 text-emerald-600 ring-2 ring-emerald-500"
+              : "bg-gray-50 text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <span className="text-2xl">👍</span>
-          <span className="mt-1 text-xs text-gray-500">Still accurate</span>
+          <ThumbsUp size={16} fill={currentVote === "up" ? "currentColor" : "none"} />
+          Accurate
         </button>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center px-2">
           <span className={`text-lg font-bold ${score >= 0 ? "text-emerald-600" : "text-red-500"}`}>
             {score >= 0 ? `+${score}` : score}
           </span>
-          <span className="text-[10px] text-gray-400">votes</span>
         </div>
 
         <button
           onClick={() => handleVote("down")}
           disabled={loading}
-          className={`flex flex-1 flex-col items-center rounded-xl py-3 transition-colors ${
+          className={`flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-all ${
             currentVote === "down"
-              ? "bg-red-100 ring-2 ring-red-400"
-              : "bg-gray-100 hover:bg-gray-200"
+              ? "bg-red-50 text-red-500 ring-2 ring-red-400"
+              : "bg-gray-50 text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <span className="text-2xl">👎</span>
-          <span className="mt-1 text-xs text-gray-500">Price changed</span>
+          <ThumbsDown size={16} fill={currentVote === "down" ? "currentColor" : "none"} />
+          Changed
         </button>
       </div>
     </div>

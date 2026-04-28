@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import { PlaceholderImage } from "@/components/shared/PlaceholderImage"
 import { PriceStamp } from "@/components/restaurant/PriceStamp"
 import { VoteButtons } from "@/components/voting/VoteButtons"
@@ -20,8 +21,7 @@ type RestaurantDetailProps = {
 export function RestaurantDetail({ restaurant, comments }: RestaurantDetailProps) {
   return (
     <div className="min-h-dvh bg-white">
-      {/* Hero photo */}
-      <div className="relative h-[200px] w-full">
+      <div className="relative h-52 w-full">
         {restaurant.photo_url ? (
           <Image
             src={restaurant.photo_url}
@@ -33,23 +33,22 @@ export function RestaurantDetail({ restaurant, comments }: RestaurantDetailProps
         ) : (
           <PlaceholderImage className="h-full w-full" size="lg" />
         )}
-        <div className="absolute inset-x-0 bottom-0 h-[60px] bg-gradient-to-t from-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
         <Link
           href="/"
-          className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-lg text-white transition-colors hover:bg-black/60"
+          className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
         >
-          ←
+          <ArrowLeft size={18} />
         </Link>
         <div className="absolute right-3 top-3">
           <BookmarkButton restaurantId={restaurant.id} />
         </div>
       </div>
 
-      <div className="space-y-6 px-5 py-5">
-        {/* Name + location */}
+      <div className="space-y-5 px-5 py-5">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-[22px] font-extrabold text-gray-900">
+            <h1 className="text-xl font-extrabold text-gray-900">
               {restaurant.name}
             </h1>
             <FeaturedBadge pinType={restaurant.pin_type} />
@@ -62,27 +61,24 @@ export function RestaurantDetail({ restaurant, comments }: RestaurantDetailProps
           </p>
         </div>
 
-        {/* Price card */}
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+        <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-green-50 p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-500">CHEAPEST DISH</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-emerald-600/70">Cheapest Dish</p>
               <p className="mt-1 text-lg font-bold text-gray-900">
                 {restaurant.dish_name}
               </p>
             </div>
-            <span className="rounded-full bg-emerald-500 px-4 py-2 text-xl font-extrabold text-white">
+            <span className="rounded-2xl bg-emerald-500 px-4 py-2 text-xl font-extrabold text-white shadow-sm">
               {formatPrice(restaurant.price)}
             </span>
           </div>
           <PriceStamp verifiedAt={restaurant.verified_at} />
         </div>
 
-        {/* Voting */}
         <VoteButtons restaurantId={restaurant.id} initialScore={restaurant.vote_score} />
 
-        {/* Comments */}
-        <div className="border-t border-gray-100 pt-6">
+        <div className="border-t border-gray-100 pt-5">
           <h3 className="mb-3 text-sm font-semibold text-gray-900">
             Comments ({comments.length})
           </h3>
@@ -92,7 +88,6 @@ export function RestaurantDetail({ restaurant, comments }: RestaurantDetailProps
           </div>
         </div>
 
-        {/* Flag */}
         <FlagButton restaurantId={restaurant.id} />
       </div>
     </div>
