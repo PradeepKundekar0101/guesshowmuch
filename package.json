@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "npx tsx --env-file=.env.local scripts/seed.ts",
-    "seed:photos": "npx tsx --env-file=.env.local scripts/seed-photos.ts"
+    "seed:photos": "npx tsx --env-file=.env.local scripts/seed-photos.ts",
+    "icons": "npx tsx scripts/generate-icons.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

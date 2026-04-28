@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Guess How Much">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16151a"/>
+      <stop offset="1" stop-color="#2a2832"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded paper-warm tile -->
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bg)"/>
+  <!-- Inner faint ring (ink-stamp feel) -->
+  <rect x="34" y="34" width="444" height="444" rx="92" ry="92"
+        fill="none" stroke="rgba(250,247,240,0.06)" stroke-width="2"/>
+
+  <!-- Editorial $ mark -->
+  <g transform="translate(256 268)">
+    <text
+      x="0" y="0"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-style="italic"
+      font-weight="400"
+      font-size="320"
+      fill="#faf7f0"
+    >$</text>
+  </g>
+
+  <!-- Accent dot (echoes the price-pin accent) -->
+  <circle cx="368" cy="148" r="22" fill="#1f7a4f"/>
+  <circle cx="368" cy="148" r="22" fill="none" stroke="rgba(250,247,240,0.12)" stroke-width="3"/>
+</svg>

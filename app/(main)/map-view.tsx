@@ -1,8 +1,12 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useCallback, useEffect, useMemo } from "react"
 import { MapContainer } from "@/components/map/MapContainer"
 import { PriceFilter } from "@/components/filters/PriceFilter"
+import {
+  CuisineFilter,
+  buildCuisineCounts,
+} from "@/components/filters/CuisineFilter"
 import { SearchBar } from "@/components/shared/SearchBar"
 import { RestaurantPreview } from "@/components/map/RestaurantPreview"
 import { FloatingSubmitButton } from "@/components/navigation/FloatingSubmitButton"
@@ -16,6 +20,7 @@ type MapViewProps = {
 
 export function MapView({ restaurants }: MapViewProps) {
   const [maxPrice, setMaxPrice] = useState(15)
+  const [cuisine, setCuisine] = useState<string | null>(null)
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null)
 
   useEffect(() => {
@@ -23,6 +28,11 @@ export function MapView({ restaurants }: MapViewProps) {
       window.location.href = "/onboarding"
     }
   }, [])
+
+  const cuisineCounts = useMemo(
+    () => buildCuisineCounts(restaurants.filter((r) => r.price <= maxPrice)),
+    [restaurants, maxPrice]
+  )
 
   const handlePinClick = useCallback((restaurant: Restaurant) => {
     setSelectedRestaurant(restaurant)
@@ -56,6 +66,13 @@ export function MapView({ restaurants }: MapViewProps) {
         restaurants={restaurants}
         onPinClick={handlePinClick}
         maxPrice={maxPrice}
+        cuisine={cuisine}
+      />
+
+      <CuisineFilter
+        cuisines={cuisineCounts}
+        value={cuisine}
+        onChange={setCuisine}
       />
 
       <PriceFilter value={maxPrice} onChange={setMaxPrice} />

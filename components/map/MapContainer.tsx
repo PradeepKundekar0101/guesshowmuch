@@ -10,9 +10,15 @@ type MapContainerProps = {
   restaurants: Restaurant[]
   onPinClick: (restaurant: Restaurant) => void
   maxPrice: number
+  cuisine?: string | null
 }
 
-export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainerProps) {
+export function MapContainer({
+  restaurants,
+  onPinClick,
+  maxPrice,
+  cuisine = null,
+}: MapContainerProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<Map<string, mapboxgl.Marker>>(new Map())
@@ -36,7 +42,7 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/mapbox/light-v11",
+      style: "mapbox://styles/mapbox/streets-v12",
       center,
       zoom: DEFAULT_ZOOM,
     })
@@ -65,14 +71,14 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
     const currentMarkers = markersRef.current
     const visibleIds = new Set<string>()
 
-    // Determine visible restaurants
-    restaurants
-      .filter((r) => r.price <= maxPrice)
-      .forEach((restaurant) => {
-        visibleIds.add(restaurant.id)
-      })
+    const filtered = restaurants.filter(
+      (r) =>
+        r.price <= maxPrice &&
+        (cuisine === null || r.cuisine_type === cuisine)
+    )
 
-    // Remove markers no longer visible
+    filtered.forEach((restaurant) => visibleIds.add(restaurant.id))
+
     currentMarkers.forEach((marker, id) => {
       if (!visibleIds.has(id)) {
         marker.remove()
@@ -80,34 +86,33 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
       }
     })
 
-    // Add or recreate markers
-    restaurants
-      .filter((r) => r.price <= maxPrice)
-      .forEach((restaurant) => {
-        const isActive = restaurant.id === activeId
+    filtered.forEach((restaurant) => {
+      const isActive = restaurant.id === activeId
+      const existing = currentMarkers.get(restaurant.id)
+      if (existing) {
+        existing.remove()
+        currentMarkers.delete(restaurant.id)
+      }
 
-        // If marker exists and active state hasn't changed, skip
-        const existing = currentMarkers.get(restaurant.id)
-        if (existing) {
-          // Remove and recreate to update active state
-          existing.remove()
-          currentMarkers.delete(restaurant.id)
-        }
-
-        const el = createPricePinElement(restaurant.price, isActive, restaurant.pin_type)
-        el.addEventListener("click", (e) => {
-          e.stopPropagation()
-          setActiveId(restaurant.id)
-          onPinClick(restaurant)
-        })
-
-        const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
-          .setLngLat([restaurant.longitude, restaurant.latitude])
-          .addTo(map)
-
-        currentMarkers.set(restaurant.id, marker)
+      const el = createPricePinElement(
+        restaurant.price,
+        isActive,
+        restaurant.pin_type,
+        restaurant.cuisine_type
+      )
+      el.addEventListener("click", (e) => {
+        e.stopPropagation()
+        setActiveId(restaurant.id)
+        onPinClick(restaurant)
       })
-  }, [restaurants, maxPrice, activeId, onPinClick])
+
+      const marker = new mapboxgl.Marker({ element: el, anchor: "bottom" })
+        .setLngLat([restaurant.longitude, restaurant.latitude])
+        .addTo(map)
+
+      currentMarkers.set(restaurant.id, marker)
+    })
+  }, [restaurants, maxPrice, cuisine, activeId, onPinClick])
 
   const handleRecenter = useCallback(() => {
     if (!mapRef.current) return
@@ -144,7 +149,7 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
 
       <button
         onClick={handleRecenter}
-        className="glass absolute bottom-48 right-3 flex h-11 w-11 items-center justify-center rounded-full text-ink shadow-[0_4px_18px_rgba(20,20,23,0.1)] transition-all hover:scale-105 active:scale-95"
+        className="glass absolute bottom-56 right-3 flex h-11 w-11 items-center justify-center rounded-full text-ink shadow-[0_4px_18px_rgba(20,20,23,0.1)] transition-all hover:scale-105 active:scale-95"
         aria-label="Re-center on my location"
       >
         <svg

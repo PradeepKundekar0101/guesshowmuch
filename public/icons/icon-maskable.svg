@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Guess How Much">
+  <!-- Full-bleed background (Android masking will round it) -->
+  <rect width="512" height="512" fill="#16151a"/>
+
+  <!-- Content lives inside the safe zone (centered 80% disk) -->
+  <g transform="translate(256 268)">
+    <text
+      x="0" y="0"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-style="italic"
+      font-weight="400"
+      font-size="260"
+      fill="#faf7f0"
+    >$</text>
+  </g>
+
+  <circle cx="340" cy="172" r="18" fill="#1f7a4f"/>
+</svg>
