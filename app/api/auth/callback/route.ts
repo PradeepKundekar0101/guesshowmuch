@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server"
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
+import { getSiteUrl } from "@/lib/utils/site-url"
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url)
+  const { searchParams, origin: requestOrigin } = new URL(request.url)
   const code = searchParams.get("code")
   const next = searchParams.get("next") ?? "/"
+
+  // Prefer the explicit production site URL so we never bounce a user
+  // back to localhost when the email link happens to fire there.
+  const base = getSiteUrl() || requestOrigin
 
   if (code) {
     const cookieStore = await cookies()
@@ -28,9 +33,10 @@ export async function GET(request: Request) {
 
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+      const target = next.startsWith("/") ? `${base}${next}` : `${base}/`
+      return NextResponse.redirect(target)
     }
   }
 
-  return NextResponse.redirect(`${origin}/?auth_error=true`)
+  return NextResponse.redirect(`${base}/?auth_error=true`)
 }

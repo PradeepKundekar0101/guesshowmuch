@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react"
 import { createBrowserClient } from "@/lib/supabase/client"
+import { siteUrl } from "@/lib/utils/site-url"
 import type { User } from "@supabase/supabase-js"
 
 type AuthContextType = {
@@ -41,10 +42,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase])
 
   async function signInWithEmail(email: string) {
+    // Remember where the user is so the callback can return them there
+    const next =
+      typeof window !== "undefined"
+        ? `${window.location.pathname}${window.location.search}`
+        : "/"
+    const callback = siteUrl(`/api/auth/callback?next=${encodeURIComponent(next)}`)
+
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+        emailRedirectTo: callback,
       },
     })
     return { error: error?.message ?? null }

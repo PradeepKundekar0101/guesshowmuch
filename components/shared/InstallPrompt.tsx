@@ -9,7 +9,7 @@ type BeforeInstallPromptEvent = Event & {
 }
 
 const DISMISS_KEY = "ghm_install_dismissed_at"
-const DISMISS_TTL_MS = 1000 * 60 * 60 * 24 * 14 // 14 days
+const DISMISS_TTL_MS = 1000 * 60 * 10 // 10 minutes
 
 export function InstallPrompt() {
   const [event, setEvent] = useState<BeforeInstallPromptEvent | null>(null)
@@ -71,7 +71,12 @@ export function InstallPrompt() {
   if (hidden || !event) return null
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-16 z-40 flex justify-center px-3 pb-[env(safe-area-inset-bottom)] sm:bottom-4">
+    <div
+      className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-3"
+      style={{
+        bottom: "calc(64px + env(safe-area-inset-bottom) + 12px)",
+      }}
+    >
       <div className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-rule bg-ink px-4 py-3 text-paper shadow-[0_12px_40px_rgba(20,20,23,0.35)] animate-rise-in">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-paper/10">
           <Download size={16} strokeWidth={1.75} />
