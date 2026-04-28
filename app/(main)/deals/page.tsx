@@ -3,6 +3,9 @@ import { Plus } from "lucide-react"
 import { getActiveDeals } from "@/lib/queries/deals"
 import { DealsList } from "@/components/deals/DealsList"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function DealsPage() {
   const deals = await getActiveDeals()
 

@@ -4,6 +4,9 @@ import { FeedList } from "@/components/feed/FeedList"
 import { NewPostForm } from "@/components/feed/NewPostForm"
 import { UserBadge } from "@/components/auth/UserBadge"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function FeedPage() {
   const [posts, restaurants] = await Promise.all([
     getPosts(),

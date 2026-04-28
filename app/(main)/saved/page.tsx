@@ -1,6 +1,9 @@
 import { getActiveRestaurants } from "@/lib/queries/restaurants"
 import { SavedList } from "@/components/saved/SavedList"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function SavedPage() {
   const allRestaurants = await getActiveRestaurants()
 

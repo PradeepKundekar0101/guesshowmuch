@@ -1,6 +1,9 @@
 import { getSuburbRankings } from "@/lib/queries/rankings"
 import { SuburbRankings } from "@/components/rankings/SuburbRankings"
 
+export const dynamic = "force-dynamic"
+export const revalidate = 0
+
 export default async function RankingsPage() {
   const rankings = await getSuburbRankings()
 
