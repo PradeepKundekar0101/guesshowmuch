@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import { getRestaurantById } from "@/lib/queries/restaurants"
+import { getCommentsByRestaurant } from "@/lib/queries/comments"
 import { RestaurantDetail } from "@/components/restaurant/RestaurantDetail"
 
 export default async function RestaurantPage({
@@ -8,13 +9,16 @@ export default async function RestaurantPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const restaurant = await getRestaurantById(id)
+  const [restaurant, comments] = await Promise.all([
+    getRestaurantById(id),
+    getCommentsByRestaurant(id),
+  ])
 
   if (!restaurant) {
     notFound()
   }
 
-  return <RestaurantDetail restaurant={restaurant} />
+  return <RestaurantDetail restaurant={restaurant} comments={comments} />
 }
 
 export async function generateMetadata({

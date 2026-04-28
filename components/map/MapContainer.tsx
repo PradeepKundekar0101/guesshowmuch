@@ -83,7 +83,7 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
       .forEach((restaurant) => {
         if (currentMarkers.has(restaurant.id)) {
           const marker = currentMarkers.get(restaurant.id)!
-          const el = createPricePinElement(restaurant.price, restaurant.id === activeId)
+          const el = createPricePinElement(restaurant.price, restaurant.id === activeId, restaurant.pin_type)
           el.addEventListener("click", () => {
             setActiveId(restaurant.id)
             onPinClick(restaurant)
@@ -92,7 +92,7 @@ export function MapContainer({ restaurants, onPinClick, maxPrice }: MapContainer
           return
         }
 
-        const el = createPricePinElement(restaurant.price, restaurant.id === activeId)
+        const el = createPricePinElement(restaurant.price, restaurant.id === activeId, restaurant.pin_type)
         el.addEventListener("click", () => {
           setActiveId(restaurant.id)
           onPinClick(restaurant)

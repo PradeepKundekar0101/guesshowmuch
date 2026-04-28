@@ -6,6 +6,7 @@ import { PriceFilter } from "@/components/filters/PriceFilter"
 import { SearchBar } from "@/components/shared/SearchBar"
 import { RestaurantPreview } from "@/components/map/RestaurantPreview"
 import { FloatingSubmitButton } from "@/components/navigation/FloatingSubmitButton"
+import Link from "next/link"
 import type { Restaurant } from "@/lib/types/database"
 
 type MapViewProps = {
@@ -40,6 +41,15 @@ export function MapView({ restaurants }: MapViewProps) {
   return (
     <div className="relative h-dvh w-full overflow-hidden pb-14">
       <SearchBar onSelect={handleSearchSelect} />
+
+      {/* Rankings link */}
+      <Link
+        href="/rankings"
+        className="absolute left-3 top-16 z-10 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 shadow-md transition-colors hover:bg-gray-50"
+      >
+        🏆 Rankings
+      </Link>
+
       <FloatingSubmitButton />
 
       <MapContainer

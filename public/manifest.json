@@ -1,0 +1,21 @@
+{
+  "name": "Guess How Much?",
+  "short_name": "GuessHowMuch",
+  "description": "Find cheap takeaway food near you. Everything under $15 AUD.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -5,14 +5,19 @@ import { PriceStamp } from "@/components/restaurant/PriceStamp"
 import { VoteButtons } from "@/components/voting/VoteButtons"
 import { BookmarkButton } from "@/components/bookmark/BookmarkButton"
 import { FlagButton } from "@/components/flag/FlagButton"
+import { FeaturedBadge } from "@/components/featured/FeaturedBadge"
+import { CommentList } from "@/components/comments/CommentList"
+import { CommentForm } from "@/components/comments/CommentForm"
 import { formatPrice } from "@/lib/utils/price"
 import type { Restaurant } from "@/lib/types/database"
+import type { Comment } from "@/lib/queries/comments"
 
 type RestaurantDetailProps = {
   restaurant: Restaurant
+  comments: Comment[]
 }
 
-export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
+export function RestaurantDetail({ restaurant, comments }: RestaurantDetailProps) {
   return (
     <div className="min-h-dvh bg-white">
       {/* Hero photo */}
@@ -43,9 +48,12 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
       <div className="space-y-6 px-5 py-5">
         {/* Name + location */}
         <div>
-          <h1 className="text-[22px] font-extrabold text-gray-900">
-            {restaurant.name}
-          </h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-[22px] font-extrabold text-gray-900">
+              {restaurant.name}
+            </h1>
+            <FeaturedBadge pinType={restaurant.pin_type} />
+          </div>
           <p className="mt-1 text-sm text-gray-500">
             {restaurant.cuisine_type} · {restaurant.suburb}
           </p>
@@ -73,11 +81,14 @@ export function RestaurantDetail({ restaurant }: RestaurantDetailProps) {
         {/* Voting */}
         <VoteButtons restaurantId={restaurant.id} initialScore={restaurant.vote_score} />
 
-        {/* Comments placeholder (M3) */}
-        <div className="border-t border-gray-100 pt-6 opacity-40">
-          <h3 className="mb-2.5 text-sm font-semibold text-gray-900">Comments</h3>
-          <div className="rounded-xl bg-gray-50 py-5 text-center text-sm text-gray-400">
-            💬 Comments coming soon
+        {/* Comments */}
+        <div className="border-t border-gray-100 pt-6">
+          <h3 className="mb-3 text-sm font-semibold text-gray-900">
+            Comments ({comments.length})
+          </h3>
+          <CommentList comments={comments} />
+          <div className="mt-3">
+            <CommentForm restaurantId={restaurant.id} />
           </div>
         </div>
 
