@@ -6,15 +6,21 @@ type PlaceholderImageProps = {
 }
 
 const iconSizes = {
-  sm: 20,
-  md: 32,
-  lg: 48,
+  sm: 18,
+  md: 28,
+  lg: 40,
 }
 
 export function PlaceholderImage({ className = "", size = "md" }: PlaceholderImageProps) {
   return (
-    <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
-      <UtensilsCrossed size={iconSizes[size]} className="text-gray-300" />
+    <div
+      className={`flex items-center justify-center bg-paper-dim ${className}`}
+    >
+      <UtensilsCrossed
+        size={iconSizes[size]}
+        strokeWidth={1.25}
+        className="text-ink-faint"
+      />
     </div>
   )
 }

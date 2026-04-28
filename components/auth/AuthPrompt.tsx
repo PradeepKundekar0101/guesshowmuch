@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { Mail } from "lucide-react"
 import { useAuth } from "@/components/auth/AuthProvider"
 
 type AuthPromptProps = {
@@ -33,34 +34,41 @@ export function AuthPrompt({ message = "Sign in to post" }: AuthPromptProps) {
 
   if (sent) {
     return (
-      <div className="rounded-xl bg-emerald-50 px-4 py-3 text-center">
-        <p className="text-sm font-medium text-emerald-700">Magic link sent!</p>
-        <p className="mt-1 text-xs text-emerald-600">Check your email and click the link to sign in.</p>
+      <div className="flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/70 px-4 py-3.5">
+        <Mail size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-emerald-600" />
+        <div>
+          <p className="text-[13px] font-semibold text-emerald-700">
+            Magic link sent
+          </p>
+          <p className="mt-0.5 text-[12px] leading-relaxed text-emerald-700/80">
+            Check your inbox and tap the link to sign in.
+          </p>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 p-4">
-      <p className="mb-3 text-sm text-gray-600">{message}</p>
+    <div className="rounded-2xl border border-rule bg-paper-dim/40 p-4">
+      <p className="mb-3 text-[13px] text-ink-soft">{message}</p>
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@email.com"
+          placeholder="you@email.com"
           required
-          className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-emerald-500"
+          className="flex-1 rounded-full border border-rule bg-surface px-4 py-2.5 text-[13px] text-ink outline-none transition-colors focus:border-ink"
         />
         <button
           type="submit"
           disabled={loading}
-          className="shrink-0 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-emerald-600 disabled:opacity-50"
+          className="shrink-0 rounded-full bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-40"
         >
-          {loading ? "..." : "Send Link"}
+          {loading ? "…" : "Send"}
         </button>
       </form>
-      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
+      {error && <p className="mt-2 text-[11px] text-cinnabar-600">{error}</p>}
     </div>
   )
 }

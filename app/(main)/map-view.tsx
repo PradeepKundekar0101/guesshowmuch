@@ -6,6 +6,7 @@ import { PriceFilter } from "@/components/filters/PriceFilter"
 import { SearchBar } from "@/components/shared/SearchBar"
 import { RestaurantPreview } from "@/components/map/RestaurantPreview"
 import { FloatingSubmitButton } from "@/components/navigation/FloatingSubmitButton"
+import { Trophy } from "lucide-react"
 import Link from "next/link"
 import type { Restaurant } from "@/lib/types/database"
 
@@ -17,7 +18,6 @@ export function MapView({ restaurants }: MapViewProps) {
   const [maxPrice, setMaxPrice] = useState(15)
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null)
 
-  // Redirect to onboarding if first visit
   useEffect(() => {
     if (!localStorage.getItem("onboarding_complete")) {
       window.location.href = "/onboarding"
@@ -42,12 +42,12 @@ export function MapView({ restaurants }: MapViewProps) {
     <div className="relative h-dvh w-full overflow-hidden pb-14">
       <SearchBar onSelect={handleSearchSelect} />
 
-      {/* Rankings link */}
       <Link
         href="/rankings"
-        className="absolute left-3 top-16 z-10 rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-gray-700 shadow-md transition-colors hover:bg-gray-50"
+        className="glass absolute left-3 top-[68px] z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium tracking-[0.04em] text-ink shadow-sm transition-all hover:bg-white"
       >
-        🏆 Rankings
+        <Trophy size={12} strokeWidth={2} className="text-gold-500" />
+        <span className="uppercase">Top suburbs</span>
       </Link>
 
       <FloatingSubmitButton />

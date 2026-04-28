@@ -16,7 +16,7 @@ export function CommentForm({ restaurantId }: CommentFormProps) {
   const [loading, setLoading] = useState(false)
 
   if (!user) {
-    return <AuthPrompt message="Sign in to comment" />
+    return <AuthPrompt message="Sign in to add a comment" />
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -52,14 +52,14 @@ export function CommentForm({ restaurantId }: CommentFormProps) {
         type="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Add a comment..."
+        placeholder="Add some context…"
         required
-        className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-emerald-500"
+        className="flex-1 rounded-full border border-rule bg-surface px-4 py-2.5 text-[13px] text-ink outline-none transition-colors focus:border-ink"
       />
       <button
         type="submit"
         disabled={loading || !content.trim()}
-        className="shrink-0 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
+        className="shrink-0 rounded-full bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-40"
       >
         Post
       </button>

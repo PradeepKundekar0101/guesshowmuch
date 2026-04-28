@@ -30,33 +30,40 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
   )
 
   return (
-    <div className="absolute bottom-16 left-3 right-3 flex items-center gap-1.5 rounded-2xl border border-gray-100 bg-white px-3 py-2 shadow-lg">
-      <span className="mr-1 text-xs font-medium text-gray-400">Under</span>
-      {PRESETS.map((preset) => (
-        <button
-          key={preset}
-          onClick={() => handlePresetClick(preset)}
-          className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
-            activePreset === preset
-              ? "bg-emerald-500 text-white shadow-sm"
-              : "bg-gray-50 text-gray-600 hover:bg-gray-100"
-          }`}
-        >
-          ${preset}
-        </button>
-      ))}
-      <div className="relative ml-2 flex-1">
-        <input
-          type="range"
-          min={1}
-          max={15}
-          step={0.5}
-          value={value}
-          onChange={handleSliderChange}
-          className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-emerald-500"
-          aria-label="Price filter slider"
-        />
+    <div className="glass absolute bottom-16 left-3 right-3 rounded-2xl px-4 py-3 shadow-[0_8px_30px_rgba(20,20,23,0.08)]">
+      <div className="flex items-baseline justify-between">
+        <span className="eyebrow">Show me under</span>
+        <span className="font-display text-lg leading-none text-ink">
+          ${value.toFixed(value % 1 === 0 ? 0 : 2)}
+        </span>
       </div>
+
+      <div className="mt-2.5 flex items-center gap-1.5">
+        {PRESETS.map((preset) => (
+          <button
+            key={preset}
+            onClick={() => handlePresetClick(preset)}
+            className={`flex-1 rounded-full py-1.5 text-[11px] font-semibold tracking-tight transition-all ${
+              activePreset === preset
+                ? "bg-ink text-paper"
+                : "bg-paper-dim text-ink-soft hover:bg-rule"
+            }`}
+          >
+            ${preset}
+          </button>
+        ))}
+      </div>
+
+      <input
+        type="range"
+        min={1}
+        max={15}
+        step={0.5}
+        value={value}
+        onChange={handleSliderChange}
+        className="editorial mt-2 w-full"
+        aria-label="Price filter slider"
+      />
     </div>
   )
 }

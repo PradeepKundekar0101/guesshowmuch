@@ -1,55 +1,79 @@
 "use client"
 
-import { MapIcon, Tag, Users } from "lucide-react"
+import { Map as MapIcon, Tags, Users, ArrowRight } from "lucide-react"
 
 type WelcomeScreenProps = {
   onContinue: () => void
 }
 
 const features = [
-  { icon: MapIcon, text: "Browse cheap eats on a live map" },
-  { icon: Tag, text: "Filter by price — $5, $8, $12, $15" },
-  { icon: Users, text: "Community-verified prices" },
+  { icon: MapIcon, text: "A live map of cheap takeaway near you" },
+  { icon: Tags, text: "Filter by price — $5, $8, $12, $15" },
+  { icon: Users, text: "Verified by the community, not algorithms" },
 ]
 
 export function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-8 py-12 text-center">
-      <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-500 shadow-lg shadow-emerald-200">
-        <span className="text-3xl font-extrabold text-white">$</span>
-      </div>
-
-      <h1 className="mt-6 text-3xl font-extrabold text-gray-900">
-        Guess How Much?
-      </h1>
-      <p className="mt-3 max-w-[280px] text-base leading-relaxed text-gray-500">
-        Find genuinely cheap takeaway food near you. Everything under $15,
-        verified by the community.
+    <div className="paper-grain relative flex min-h-dvh flex-col bg-paper px-7 pb-10 pt-16">
+      {/* Eyebrow */}
+      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-ink-muted">
+        Brisbane · Vol. 01
       </p>
 
-      <div className="mt-8 w-full max-w-[280px] text-left">
-        {features.map((feature) => {
-          const Icon = feature.icon
-          return (
-            <div key={feature.text} className="flex items-center gap-3 py-2.5">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50">
-                <Icon size={18} className="text-emerald-600" />
-              </div>
-              <span className="text-sm text-gray-600">{feature.text}</span>
-            </div>
-          )
-        })}
+      {/* Editorial wordmark */}
+      <div className="mt-12 animate-rise-in">
+        <h1 className="font-display text-[64px] leading-[0.9] tracking-tight text-ink">
+          Guess
+          <br />
+          how <em className="text-emerald-600">much</em>
+          <span className="text-ink">?</span>
+        </h1>
+        <div className="mt-6 h-px w-16 bg-ink" />
+        <p className="mt-6 max-w-[300px] text-[15px] leading-relaxed text-ink-soft">
+          A community-kept guide to the cheapest takeaway in town.
+          <span className="text-ink"> Everything under $15</span>, verified on
+          the ground.
+        </p>
       </div>
 
-      <div className="mt-10 w-full max-w-[280px]">
+      {/* Features */}
+      <ul className="mt-10 space-y-4 animate-rise-in" style={{ animationDelay: "120ms" }}>
+        {features.map((feature, idx) => {
+          const Icon = feature.icon
+          return (
+            <li key={feature.text} className="flex items-start gap-4">
+              <span className="price-num mt-1 w-6 shrink-0 text-[11px] font-semibold text-ink-muted">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-rule bg-surface">
+                <Icon size={15} strokeWidth={1.75} className="text-ink" />
+              </span>
+              <span className="pt-1 text-[14px] leading-snug text-ink">
+                {feature.text}
+              </span>
+            </li>
+          )
+        })}
+      </ul>
+
+      {/* Spacer */}
+      <div className="flex-1" />
+
+      {/* CTA */}
+      <div className="mt-10 animate-rise-in" style={{ animationDelay: "240ms" }}>
         <button
           onClick={onContinue}
-          className="w-full rounded-2xl bg-emerald-500 px-6 py-4 text-base font-bold text-white shadow-lg shadow-emerald-200 transition-all hover:bg-emerald-600 active:scale-[0.98]"
+          className="group flex w-full items-center justify-between rounded-full bg-ink px-6 py-4 text-paper transition-all hover:bg-ink/90 active:scale-[0.99]"
         >
-          Get Started
+          <span className="text-[14px] font-semibold tracking-tight">
+            Open the guide
+          </span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:translate-x-0.5">
+            <ArrowRight size={15} strokeWidth={2} />
+          </span>
         </button>
-        <p className="mt-2.5 text-xs text-gray-400">
-          No account needed to browse
+        <p className="mt-3 text-center text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+          Free · No account required to browse
         </p>
       </div>
     </div>

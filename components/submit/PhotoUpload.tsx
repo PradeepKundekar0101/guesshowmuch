@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef } from "react"
+import { Camera, X, Loader2 } from "lucide-react"
 import { compressImage } from "@/lib/utils/image"
 
 type PhotoUploadProps = {
@@ -46,17 +47,24 @@ export function PhotoUpload({ onUpload }: PhotoUploadProps) {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-        Photo <span className="text-gray-400 font-normal">(optional)</span>
+      <label className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-soft">
+        Photo <span className="font-normal text-ink-muted">(optional)</span>
       </label>
       {preview ? (
-        <div className="relative">
-          <img src={preview} alt="Preview" className="h-32 w-full rounded-xl object-cover" />
+        <div className="relative overflow-hidden rounded-xl ring-1 ring-rule">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={preview} alt="Preview" className="h-36 w-full object-cover" />
           <button
-            onClick={() => { setPreview(null); onUpload(""); if (inputRef.current) inputRef.current.value = "" }}
-            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-xs text-white"
+            type="button"
+            onClick={() => {
+              setPreview(null)
+              onUpload("")
+              if (inputRef.current) inputRef.current.value = ""
+            }}
+            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-ink/70 text-paper backdrop-blur transition-colors hover:bg-ink"
+            aria-label="Remove photo"
           >
-            ✕
+            <X size={14} strokeWidth={2} />
           </button>
         </div>
       ) : (
@@ -64,13 +72,29 @@ export function PhotoUpload({ onUpload }: PhotoUploadProps) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex h-32 w-full items-center justify-center rounded-xl border-2 border-dashed border-gray-200 text-gray-400 transition-colors hover:border-emerald-300 hover:text-emerald-500"
+          className="group flex h-36 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-rule bg-paper-dim/40 text-ink-muted transition-all hover:border-ink hover:bg-paper-dim hover:text-ink disabled:opacity-50"
         >
-          {uploading ? "Uploading..." : "📷 Tap to add photo"}
+          {uploading ? (
+            <>
+              <Loader2 size={20} className="animate-spin" strokeWidth={1.75} />
+              <span className="text-[12px] font-medium">Uploading…</span>
+            </>
+          ) : (
+            <>
+              <Camera size={22} strokeWidth={1.5} />
+              <span className="text-[12px] font-medium">Tap to add a photo</span>
+            </>
+          )}
         </button>
       )}
-      <input ref={inputRef} type="file" accept="image/jpeg,image/png" onChange={handleFile} className="hidden" />
-      {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/jpeg,image/png"
+        onChange={handleFile}
+        className="hidden"
+      />
+      {error && <p className="mt-1.5 text-[11px] text-cinnabar-600">{error}</p>}
     </div>
   )
 }

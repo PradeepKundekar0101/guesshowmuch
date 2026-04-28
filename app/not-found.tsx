@@ -1,18 +1,24 @@
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-8 text-center">
-      <span className="text-6xl">🤷</span>
-      <h1 className="mt-4 text-2xl font-bold text-gray-900">Page not found</h1>
-      <p className="mt-2 text-gray-500">
-        The page you're looking for doesn't exist.
+    <div className="flex min-h-dvh flex-col items-center justify-center bg-paper px-8 text-center">
+      <p className="price-num text-[88px] font-semibold leading-none text-ink-faint">
+        404
+      </p>
+      <h1 className="mt-3 font-display text-[36px] leading-tight tracking-tight text-ink">
+        Off the map
+      </h1>
+      <p className="mt-2 max-w-[300px] text-[14px] leading-relaxed text-ink-soft">
+        This page doesn&apos;t exist — or maybe it moved on to cheaper pastures.
       </p>
       <Link
         href="/"
-        className="mt-6 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-600"
+        className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold tracking-tight text-paper transition-all hover:bg-ink/90 active:scale-[0.98]"
       >
-        Back to Map
+        <ArrowLeft size={14} strokeWidth={2} />
+        Back to the map
       </Link>
     </div>
   )

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useRef } from "react"
-import { Search, X } from "lucide-react"
+import { Search, X, MapPin } from "lucide-react"
 
 type SearchResult = {
   place_name: string
@@ -16,6 +16,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<SearchResult[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [focused, setFocused] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const search = useCallback(async (text: string) => {
@@ -73,32 +74,51 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   return (
     <div className="absolute left-3 right-3 top-3 z-10">
       <div className="relative">
-        <div className="flex items-center gap-2.5 rounded-xl border border-gray-100 bg-white px-3.5 py-2.5 shadow-lg">
-          <Search size={16} className="shrink-0 text-gray-400" />
+        <div
+          className={`glass flex items-center gap-2.5 rounded-full px-4 py-2.5 shadow-[0_4px_20px_rgba(20,20,23,0.06)] transition-all ${
+            focused ? "ring-1 ring-ink/15" : ""
+          }`}
+        >
+          <Search size={15} className="shrink-0 text-ink-soft" strokeWidth={2} />
           <input
             type="text"
             value={query}
             onChange={handleChange}
-            onFocus={() => results.length > 0 && setIsOpen(true)}
-            placeholder="Search suburb or area..."
-            className="flex-1 bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400"
+            onFocus={() => {
+              setFocused(true)
+              if (results.length > 0) setIsOpen(true)
+            }}
+            onBlur={() => setFocused(false)}
+            placeholder="Search a suburb…"
+            className="flex-1 bg-transparent text-[13px] tracking-tight text-ink outline-none placeholder:text-ink-muted"
           />
           {query && (
-            <button onClick={handleClear} className="shrink-0 text-gray-300 hover:text-gray-500">
-              <X size={16} />
+            <button
+              onClick={handleClear}
+              className="shrink-0 text-ink-muted transition-colors hover:text-ink"
+              aria-label="Clear search"
+            >
+              <X size={14} />
             </button>
           )}
         </div>
 
         {isOpen && (
-          <div className="absolute left-0 right-0 top-full mt-1.5 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl">
+          <div className="absolute left-0 right-0 top-full mt-2 overflow-hidden rounded-2xl border border-rule bg-surface shadow-xl shadow-black/5 animate-fade-in">
             {results.map((result, i) => (
               <button
                 key={i}
                 onClick={() => handleSelect(result)}
-                className="block w-full border-b border-gray-50 px-4 py-3 text-left text-sm text-gray-700 transition-colors last:border-0 hover:bg-gray-50"
+                className="flex w-full items-start gap-3 border-b border-rule/60 px-4 py-3 text-left transition-colors last:border-0 hover:bg-paper-dim"
               >
-                {result.place_name}
+                <MapPin
+                  size={13}
+                  className="mt-0.5 shrink-0 text-ink-muted"
+                  strokeWidth={1.75}
+                />
+                <span className="text-[13px] leading-tight text-ink">
+                  {result.place_name}
+                </span>
               </button>
             ))}
           </div>

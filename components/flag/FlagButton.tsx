@@ -35,21 +35,23 @@ export function FlagButton({ restaurantId }: FlagButtonProps) {
   }
 
   return (
-    <div className="border-t border-gray-100 pt-6 text-center">
+    <div className="border-t border-rule pt-5 text-center">
       <button
         onClick={handleFlag}
         disabled={flagged || loading}
-        className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all ${
+        className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[12px] font-medium transition-all ${
           flagged
-            ? "border-gray-200 bg-gray-50 text-gray-400"
-            : "border-gray-200 text-gray-500 hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+            ? "border-rule bg-paper-dim text-ink-muted"
+            : "border-rule text-ink-soft hover:border-cinnabar-200 hover:bg-cinnabar-50 hover:text-cinnabar-600"
         }`}
       >
-        {flagged ? <Check size={14} /> : <Flag size={14} />}
-        {flagged ? "Flagged" : "Report outdated info"}
+        {flagged ? <Check size={13} strokeWidth={2} /> : <Flag size={13} strokeWidth={1.75} />}
+        {flagged ? "Reported" : "Report outdated info"}
       </button>
       {flagged && (
-        <p className="mt-1.5 text-[11px] text-gray-400">Thanks for reporting</p>
+        <p className="mt-2 text-[11px] tracking-wide text-ink-muted">
+          Thanks — we&apos;ll take a look.
+        </p>
       )}
     </div>
   )

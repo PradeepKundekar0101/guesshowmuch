@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Heart } from "lucide-react"
+import { Bookmark } from "lucide-react"
 import { isBookmarked, toggleBookmark } from "@/lib/utils/local-storage"
 
 type BookmarkButtonProps = {
@@ -11,6 +11,7 @@ type BookmarkButtonProps = {
 
 export function BookmarkButton({ restaurantId, size = "md" }: BookmarkButtonProps) {
   const [saved, setSaved] = useState(false)
+  const [animating, setAnimating] = useState(false)
 
   useEffect(() => {
     setSaved(isBookmarked(restaurantId))
@@ -21,22 +22,30 @@ export function BookmarkButton({ restaurantId, size = "md" }: BookmarkButtonProp
     e.stopPropagation()
     const nowSaved = toggleBookmark(restaurantId)
     setSaved(nowSaved)
+    setAnimating(true)
+    setTimeout(() => setAnimating(false), 200)
   }
 
-  const iconSize = size === "sm" ? 16 : 20
+  const iconSize = size === "sm" ? 14 : 18
   const buttonSize = size === "sm" ? "h-8 w-8" : "h-10 w-10"
 
   return (
     <button
       onClick={handleToggle}
-      className={`flex items-center justify-center rounded-full transition-all active:scale-90 ${buttonSize} ${
+      className={`flex shrink-0 items-center justify-center rounded-full border transition-all ${buttonSize} ${
+        animating ? "scale-90" : "scale-100"
+      } ${
         saved
-          ? "bg-red-50 text-red-500"
-          : "bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+          ? "border-ink bg-ink text-paper"
+          : "border-rule bg-surface text-ink-soft hover:border-ink hover:text-ink"
       }`}
       aria-label={saved ? "Remove bookmark" : "Save restaurant"}
     >
-      <Heart size={iconSize} fill={saved ? "currentColor" : "none"} strokeWidth={2} />
+      <Bookmark
+        size={iconSize}
+        fill={saved ? "currentColor" : "none"}
+        strokeWidth={1.75}
+      />
     </button>
   )
 }

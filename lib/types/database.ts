@@ -14,14 +14,28 @@ export type Restaurant = {
   verified_at: string
   flag_count: number
   vote_score: number
+  up_count: number
+  down_count: number
   is_active: boolean
   created_at: string
   updated_at: string
 }
 
-export type RestaurantInsert = Omit<Restaurant, "id" | "created_at" | "updated_at" | "flag_count" | "vote_score" | "is_active"> & {
+export type RestaurantInsert = Omit<
+  Restaurant,
+  | "id"
+  | "created_at"
+  | "updated_at"
+  | "flag_count"
+  | "vote_score"
+  | "up_count"
+  | "down_count"
+  | "is_active"
+> & {
   id?: string
   flag_count?: number
   vote_score?: number
+  up_count?: number
+  down_count?: number
   is_active?: boolean
 }

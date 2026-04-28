@@ -5,12 +5,19 @@ export default async function RankingsPage() {
   const rankings = await getSuburbRankings()
 
   return (
-    <div className="min-h-dvh bg-gray-50 pb-20">
-      <div className="border-b border-gray-100 bg-white px-5 py-4">
-        <h1 className="text-lg font-bold text-gray-900">🏆 Popular Suburbs</h1>
-        <p className="mt-0.5 text-xs text-gray-400">Ranked by community votes</p>
-      </div>
-      <div className="px-4 py-4">
+    <div className="min-h-dvh bg-paper pb-20">
+      <header className="border-b border-rule bg-paper/95 backdrop-blur-sm">
+        <div className="mx-auto max-w-md px-5 pt-7 pb-5">
+          <p className="eyebrow">Brisbane · ranked by votes</p>
+          <h1 className="mt-1 font-display text-[34px] leading-[0.95] tracking-tight text-ink">
+            The cheapest <em>suburbs</em>
+          </h1>
+          <p className="mt-1.5 max-w-[300px] text-[13px] leading-snug text-ink-soft">
+            A weekly read on which neighbourhoods the community is rating highest.
+          </p>
+        </div>
+      </header>
+      <div className="mx-auto max-w-md px-4 py-5">
         <SuburbRankings rankings={rankings} />
       </div>
     </div>

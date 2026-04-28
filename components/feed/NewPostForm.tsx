@@ -2,15 +2,30 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { AtSign } from "lucide-react"
 import { useAuth } from "@/components/auth/AuthProvider"
 import { AuthPrompt } from "@/components/auth/AuthPrompt"
 import { PhotoUpload } from "@/components/submit/PhotoUpload"
+import { RestaurantPicker } from "@/components/shared/RestaurantPicker"
+import type { Restaurant } from "@/lib/types/database"
 
-export function NewPostForm() {
+type NewPostFormProps = {
+  restaurants: Restaurant[]
+  defaultRestaurantId?: string | null
+}
+
+export function NewPostForm({
+  restaurants,
+  defaultRestaurantId = null,
+}: NewPostFormProps) {
   const { user } = useAuth()
   const router = useRouter()
   const [content, setContent] = useState("")
   const [photoUrl, setPhotoUrl] = useState("")
+  const [restaurantId, setRestaurantId] = useState<string | null>(
+    defaultRestaurantId
+  )
+  const [showPicker, setShowPicker] = useState(Boolean(defaultRestaurantId))
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -33,6 +48,7 @@ export function NewPostForm() {
           content: content.trim(),
           photo_url: photoUrl || null,
           user_email: user!.email,
+          restaurant_id: restaurantId,
         }),
       })
 
@@ -44,6 +60,8 @@ export function NewPostForm() {
 
       setContent("")
       setPhotoUrl("")
+      if (!defaultRestaurantId) setRestaurantId(null)
+      setShowPicker(Boolean(defaultRestaurantId))
       router.refresh()
     } catch {
       setError("Something went wrong")
@@ -53,25 +71,56 @@ export function NewPostForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-200 bg-white p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-2xl border border-rule bg-surface p-4"
+    >
+      <p className="eyebrow mb-2">Share a find</p>
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        placeholder="Share a cheap eat find..."
+        placeholder="What did you eat, where, and how cheap?"
         required
         rows={3}
-        className="w-full resize-none rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-emerald-500"
+        className="w-full resize-none rounded-xl border border-rule bg-paper-dim/40 px-3 py-2.5 text-[14px] text-ink outline-none transition-colors focus:border-ink focus:bg-surface"
       />
+
+      {(showPicker || restaurantId) && (
+        <div className="mt-3">
+          <p className="eyebrow mb-2">Mention a restaurant</p>
+          <RestaurantPicker
+            restaurants={restaurants}
+            value={restaurantId}
+            onChange={setRestaurantId}
+            placeholder="Tag a restaurant…"
+          />
+        </div>
+      )}
+
+      <div className="mt-3 flex items-center justify-between gap-2">
+        {!showPicker && !restaurantId && !defaultRestaurantId && (
+          <button
+            type="button"
+            onClick={() => setShowPicker(true)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-rule px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-ink-soft transition-all hover:border-ink hover:text-ink"
+          >
+            <AtSign size={12} strokeWidth={2} />
+            Tag a restaurant
+          </button>
+        )}
+        {(showPicker || restaurantId) && <span />}
+      </div>
+
       <div className="mt-3">
         <PhotoUpload onUpload={setPhotoUrl} />
       </div>
-      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
+      {error && <p className="mt-2 text-[11px] text-cinnabar-600">{error}</p>}
       <button
         type="submit"
         disabled={loading || !content.trim()}
-        className="mt-3 w-full rounded-xl bg-emerald-500 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-600 disabled:opacity-50"
+        className="mt-3 w-full rounded-full bg-ink py-2.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-40"
       >
-        {loading ? "Posting..." : "Post"}
+        {loading ? "Posting…" : "Post to feed"}
       </button>
     </form>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Clock } from "lucide-react"
 import { getCountdown } from "@/lib/utils/time"
 
 type CountdownTimerProps = {
@@ -19,12 +20,17 @@ export function CountdownTimer({ expiresAt }: CountdownTimerProps) {
   }, [expiresAt])
 
   if (countdown.expired) {
-    return <span className="text-xs font-medium text-red-500">Expired</span>
+    return (
+      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-paper-dim px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink-muted">
+        Expired
+      </span>
+    )
   }
 
   return (
-    <span className="text-xs font-bold text-orange-600">
-      {countdown.hours}h {countdown.minutes}m left
+    <span className="price-num inline-flex shrink-0 items-center gap-1 rounded-full bg-paper-dim px-2 py-1 text-[11px] font-semibold text-ink">
+      <Clock size={10} strokeWidth={2} className="text-cinnabar-500" />
+      {countdown.hours}h {countdown.minutes}m
     </span>
   )
 }

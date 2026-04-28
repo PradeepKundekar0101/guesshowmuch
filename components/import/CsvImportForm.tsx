@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { CheckCircle2, AlertCircle } from "lucide-react"
 
 type ImportResult = { imported: number; errors: string[] }
 
@@ -57,7 +58,10 @@ export function CsvImportForm() {
         body: JSON.stringify({ passphrase, restaurants: preview }),
       })
       const data = await res.json()
-      if (!res.ok) { setError(data.error || "Import failed"); return }
+      if (!res.ok) {
+        setError(data.error || "Import failed")
+        return
+      }
       setResult(data)
     } catch {
       setError("Something went wrong. Please try again.")
@@ -70,10 +74,27 @@ export function CsvImportForm() {
     return (
       <form onSubmit={handleUnlock} className="space-y-4">
         <div>
-          <label htmlFor="passphrase" className="block text-sm font-medium text-gray-700 mb-1.5">Admin Passphrase</label>
-          <input id="passphrase" type="password" value={passphrase} onChange={(e) => setPassphrase(e.target.value)} className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="Enter passphrase..." />
+          <label
+            htmlFor="passphrase"
+            className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-soft"
+          >
+            Admin passphrase
+          </label>
+          <input
+            id="passphrase"
+            type="password"
+            value={passphrase}
+            onChange={(e) => setPassphrase(e.target.value)}
+            className="w-full rounded-xl border border-rule bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-ink"
+            placeholder="Enter passphrase…"
+          />
         </div>
-        <button type="submit" className="w-full rounded-2xl bg-emerald-500 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-600">Unlock</button>
+        <button
+          type="submit"
+          className="w-full rounded-full bg-ink py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 active:scale-[0.99]"
+        >
+          Unlock
+        </button>
       </form>
     )
   }
@@ -81,35 +102,50 @@ export function CsvImportForm() {
   return (
     <div className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">CSV File</label>
-        <input type="file" accept=".csv" onChange={handleFileChange} className="w-full text-sm text-gray-500 file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-emerald-700 hover:file:bg-emerald-100" />
-        <p className="mt-1 text-xs text-gray-400">Format: name, cuisine_type, address, suburb, city, latitude, longitude, dish_name, price, photo_url</p>
+        <label className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-soft">
+          CSV file
+        </label>
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileChange}
+          className="w-full text-sm text-ink-soft file:mr-4 file:rounded-full file:border-0 file:bg-ink file:px-4 file:py-2 file:text-[12px] file:font-semibold file:uppercase file:tracking-[0.06em] file:text-paper hover:file:bg-ink/85"
+        />
+        <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
+          Format: name, cuisine_type, address, suburb, city, latitude,
+          longitude, dish_name, price, photo_url
+        </p>
       </div>
+
       {preview.length > 0 && (
         <div>
-          <p className="text-sm font-medium text-gray-700">Preview: {preview.length} row{preview.length !== 1 ? "s" : ""}</p>
-          <div className="mt-2 max-h-60 overflow-auto rounded-xl border border-gray-200">
+          <p className="mb-2 text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-soft">
+            Preview · {preview.length} row{preview.length !== 1 ? "s" : ""}
+          </p>
+          <div className="max-h-60 overflow-auto rounded-xl border border-rule bg-surface">
             <table className="w-full text-xs">
-              <thead className="bg-gray-50">
+              <thead className="bg-paper-dim text-ink-muted">
                 <tr>
-                  <th className="px-3 py-2 text-left font-medium text-gray-500">Name</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-500">Dish</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-500">Price</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-500">Suburb</th>
+                  <th className="px-3 py-2 text-left font-semibold uppercase tracking-[0.06em]">Name</th>
+                  <th className="px-3 py-2 text-left font-semibold uppercase tracking-[0.06em]">Dish</th>
+                  <th className="px-3 py-2 text-left font-semibold uppercase tracking-[0.06em]">Price</th>
+                  <th className="px-3 py-2 text-left font-semibold uppercase tracking-[0.06em]">Suburb</th>
                 </tr>
               </thead>
               <tbody>
                 {preview.slice(0, 10).map((row, i) => (
-                  <tr key={i} className="border-t border-gray-100">
-                    <td className="px-3 py-2 text-gray-700">{String(row.name || "")}</td>
-                    <td className="px-3 py-2 text-gray-700">{String(row.dish_name || "")}</td>
-                    <td className="px-3 py-2 text-gray-700">${String(row.price || "")}</td>
-                    <td className="px-3 py-2 text-gray-700">{String(row.suburb || "")}</td>
+                  <tr key={i} className="border-t border-rule text-ink">
+                    <td className="px-3 py-2">{String(row.name || "")}</td>
+                    <td className="px-3 py-2">{String(row.dish_name || "")}</td>
+                    <td className="price-num px-3 py-2">${String(row.price || "")}</td>
+                    <td className="px-3 py-2">{String(row.suburb || "")}</td>
                   </tr>
                 ))}
                 {preview.length > 10 && (
-                  <tr className="border-t border-gray-100">
-                    <td colSpan={4} className="px-3 py-2 text-center text-gray-400">...and {preview.length - 10} more rows</td>
+                  <tr className="border-t border-rule">
+                    <td colSpan={4} className="px-3 py-2 text-center text-ink-muted">
+                      …and {preview.length - 10} more
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -117,20 +153,45 @@ export function CsvImportForm() {
           </div>
         </div>
       )}
+
       {preview.length > 0 && (
-        <button onClick={handleImport} disabled={loading} className="w-full rounded-2xl bg-emerald-500 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-600 disabled:opacity-50">
-          {loading ? "Importing..." : `Import ${preview.length} Restaurants`}
+        <button
+          onClick={handleImport}
+          disabled={loading}
+          className="w-full rounded-full bg-ink py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-50"
+        >
+          {loading ? "Importing…" : `Import ${preview.length} restaurants`}
         </button>
       )}
+
       {result && (
-        <div className="rounded-xl bg-emerald-50 px-4 py-3 text-sm">
-          <p className="font-medium text-emerald-700">✅ Imported {result.imported} restaurant{result.imported !== 1 ? "s" : ""}</p>
-          {result.errors.length > 0 && (
-            <ul className="mt-2 space-y-1 text-xs text-red-600">{result.errors.map((err, i) => (<li key={i}>{err}</li>))}</ul>
-          )}
+        <div className="flex items-start gap-2.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm">
+          <CheckCircle2
+            size={16}
+            strokeWidth={2}
+            className="mt-0.5 shrink-0 text-emerald-600"
+          />
+          <div>
+            <p className="font-semibold text-emerald-700">
+              Imported {result.imported} restaurant{result.imported !== 1 ? "s" : ""}
+            </p>
+            {result.errors.length > 0 && (
+              <ul className="mt-1.5 space-y-0.5 text-[11px] text-cinnabar-600">
+                {result.errors.map((err, i) => (
+                  <li key={i}>{err}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       )}
-      {error && (<div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>)}
+
+      {error && (
+        <div className="flex items-start gap-2.5 rounded-xl border border-cinnabar-200 bg-cinnabar-50 px-4 py-3 text-sm text-cinnabar-700">
+          <AlertCircle size={16} strokeWidth={2} className="mt-0.5 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
     </div>
   )
 }

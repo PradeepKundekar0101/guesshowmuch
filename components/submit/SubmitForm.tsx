@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { AlertCircle } from "lucide-react"
 import { PhotoUpload } from "@/components/submit/PhotoUpload"
 
 const CUISINE_TYPES = [
@@ -9,6 +10,11 @@ const CUISINE_TYPES = [
   "Mexican", "Italian", "Greek", "Middle Eastern", "Malaysian",
   "Taiwanese", "Australian", "Vegetarian", "Asian Fusion", "Other",
 ] as const
+
+const inputBase =
+  "w-full rounded-xl border border-rule bg-surface px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-ink"
+const labelBase =
+  "mb-2 block text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-soft"
 
 export function SubmitForm() {
   const router = useRouter()
@@ -74,37 +80,71 @@ export function SubmitForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="rounded-2xl border border-rule bg-paper-dim/40 p-4">
+        <p className="text-[12px] leading-relaxed text-ink-soft">
+          You&apos;re adding a new spot to the guide. Keep it under
+          <span className="price-num font-semibold text-ink"> $15</span> and
+          we&apos;ll feature it on the map.
+        </p>
+      </div>
+
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">Restaurant name *</label>
-        <input id="name" name="name" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="e.g. Pho Viet Express" />
+        <label htmlFor="name" className={labelBase}>Restaurant name</label>
+        <input id="name" name="name" required className={inputBase} placeholder="e.g. Pho Viet Express" />
       </div>
       <div>
-        <label htmlFor="dish_name" className="block text-sm font-medium text-gray-700 mb-1.5">Dish name *</label>
-        <input id="dish_name" name="dish_name" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="e.g. Beef Pho" />
+        <label htmlFor="dish_name" className={labelBase}>Dish name</label>
+        <input id="dish_name" name="dish_name" required className={inputBase} placeholder="e.g. Beef Pho" />
       </div>
       <div>
-        <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1.5">Price (AUD) *</label>
-        <input id="price" name="price" type="number" step="0.01" min="0.01" max="15" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="e.g. 4.90" />
+        <label htmlFor="price" className={labelBase}>Price (AUD)</label>
+        <div className="relative">
+          <span className="price-num pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-ink-muted">
+            $
+          </span>
+          <input
+            id="price"
+            name="price"
+            type="number"
+            step="0.01"
+            min="0.01"
+            max="15"
+            required
+            className={`${inputBase} price-num pl-7`}
+            placeholder="4.90"
+          />
+        </div>
       </div>
       <div>
-        <label htmlFor="cuisine_type" className="block text-sm font-medium text-gray-700 mb-1.5">Cuisine type *</label>
-        <select id="cuisine_type" name="cuisine_type" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
-          <option value="">Select cuisine...</option>
-          {CUISINE_TYPES.map((type) => (<option key={type} value={type}>{type}</option>))}
+        <label htmlFor="cuisine_type" className={labelBase}>Cuisine</label>
+        <select id="cuisine_type" name="cuisine_type" required className={inputBase}>
+          <option value="">Select cuisine…</option>
+          {CUISINE_TYPES.map((type) => (
+            <option key={type} value={type}>{type}</option>
+          ))}
         </select>
       </div>
       <div>
-        <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1.5">Street address *</label>
-        <input id="address" name="address" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="e.g. 123 Mains Road" />
+        <label htmlFor="address" className={labelBase}>Street address</label>
+        <input id="address" name="address" required className={inputBase} placeholder="e.g. 123 Mains Road" />
       </div>
       <div>
-        <label htmlFor="suburb" className="block text-sm font-medium text-gray-700 mb-1.5">Suburb *</label>
-        <input id="suburb" name="suburb" required className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" placeholder="e.g. Sunnybank" />
+        <label htmlFor="suburb" className={labelBase}>Suburb</label>
+        <input id="suburb" name="suburb" required className={inputBase} placeholder="e.g. Sunnybank" />
       </div>
       <PhotoUpload onUpload={setPhotoUrl} />
-      {error && (<div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>)}
-      <button type="submit" disabled={loading} className="w-full rounded-2xl bg-emerald-500 py-4 text-base font-bold text-white transition-colors hover:bg-emerald-600 disabled:opacity-50">
-        {loading ? "Submitting..." : "Submit Restaurant"}
+      {error && (
+        <div className="flex items-start gap-2.5 rounded-xl border border-cinnabar-200 bg-cinnabar-50 px-4 py-3 text-sm text-cinnabar-700">
+          <AlertCircle size={16} strokeWidth={2} className="mt-0.5 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full rounded-full bg-ink py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-paper transition-all hover:bg-ink/90 disabled:opacity-50"
+      >
+        {loading ? "Submitting…" : "Submit restaurant"}
       </button>
     </form>
   )

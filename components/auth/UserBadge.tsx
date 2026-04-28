@@ -9,11 +9,13 @@ export function UserBadge() {
   if (loading || !user) return null
 
   return (
-    <div className="flex items-center gap-2 text-sm">
-      <span className="text-gray-500">{anonymizeEmail(user.email ?? "")}</span>
+    <div className="flex shrink-0 flex-col items-end leading-tight">
+      <span className="text-[12px] font-medium text-ink">
+        {anonymizeEmail(user.email ?? "")}
+      </span>
       <button
         onClick={signOut}
-        className="text-xs text-gray-400 underline hover:text-gray-600"
+        className="text-[10px] uppercase tracking-[0.08em] text-ink-muted transition-colors hover:text-ink"
       >
         Sign out
       </button>

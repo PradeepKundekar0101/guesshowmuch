@@ -1,20 +1,24 @@
 import Link from "next/link"
+import { ArrowLeft, UtensilsCrossed } from "lucide-react"
 
 export default function RestaurantNotFound() {
   return (
-    <div className="flex min-h-dvh flex-col items-center justify-center px-8 text-center">
-      <span className="text-6xl">🍽️</span>
-      <h1 className="mt-4 text-2xl font-bold text-gray-900">
-        Restaurant not found
+    <div className="flex min-h-dvh flex-col items-center justify-center bg-paper px-8 text-center">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full border border-rule bg-paper-dim">
+        <UtensilsCrossed size={22} strokeWidth={1.5} className="text-ink-soft" />
+      </div>
+      <h1 className="mt-5 font-display text-[32px] leading-tight tracking-tight text-ink">
+        Listing not found
       </h1>
-      <p className="mt-2 text-gray-500">
-        This listing may have been removed or doesn't exist.
+      <p className="mt-2 max-w-[280px] text-[14px] leading-relaxed text-ink-soft">
+        This spot may have been removed, or the link has gone cold.
       </p>
       <Link
         href="/"
-        className="mt-6 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-600"
+        className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold tracking-tight text-paper transition-all hover:bg-ink/90 active:scale-[0.98]"
       >
-        Back to Map
+        <ArrowLeft size={14} strokeWidth={2} />
+        Back to the map
       </Link>
     </div>
   )

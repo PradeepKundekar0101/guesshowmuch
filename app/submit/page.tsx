@@ -1,14 +1,28 @@
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import { SubmitForm } from "@/components/submit/SubmitForm"
 
 export default function SubmitPage() {
   return (
-    <div className="min-h-dvh bg-white">
-      <div className="flex items-center gap-3 border-b border-gray-100 px-5 py-4">
-        <Link href="/" className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-lg transition-colors hover:bg-gray-200">←</Link>
-        <h1 className="text-lg font-bold text-gray-900">Add a Cheap Eat</h1>
-      </div>
-      <div className="px-5 py-6">
+    <div className="min-h-dvh bg-paper">
+      <header className="sticky top-0 z-10 border-b border-rule bg-paper/95 backdrop-blur-sm">
+        <div className="flex items-center gap-3 px-4 py-3">
+          <Link
+            href="/"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition-colors hover:bg-paper-dim"
+            aria-label="Back to map"
+          >
+            <ArrowLeft size={18} strokeWidth={1.75} />
+          </Link>
+          <div className="min-w-0 flex-1">
+            <p className="eyebrow">Contribute</p>
+            <h1 className="font-display text-[20px] leading-tight tracking-tight text-ink">
+              Add a cheap eat
+            </h1>
+          </div>
+        </div>
+      </header>
+      <div className="px-5 pb-10 pt-6">
         <SubmitForm />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { CheckCircle, AlertTriangle } from "lucide-react"
+import { CheckCircle2, AlertTriangle } from "lucide-react"
 import { getVerificationStatus } from "@/lib/utils/price"
 
 type PriceStampProps = {
@@ -10,17 +10,17 @@ export function PriceStamp({ verifiedAt }: PriceStampProps) {
 
   if (isStale) {
     return (
-      <div className="mt-2.5 flex items-center gap-1.5 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-700">
-        <AlertTriangle size={13} />
-        <span>{label}</span>
+      <div className="mt-3 flex items-start gap-2 rounded-xl border border-gold-300/40 bg-gold-50/60 px-3 py-2 text-[12px] text-gold-700">
+        <AlertTriangle size={13} strokeWidth={2} className="mt-0.5 shrink-0" />
+        <span className="leading-snug">{label}</span>
       </div>
     )
   }
 
   return (
-    <div className="mt-2.5 flex items-center gap-1.5">
-      <CheckCircle size={14} className="text-emerald-500" />
-      <span className="text-sm font-medium text-emerald-600">{label}</span>
+    <div className="mt-3 flex items-center gap-1.5 text-[12px] font-medium text-emerald-600">
+      <CheckCircle2 size={13} strokeWidth={2} />
+      <span>{label}</span>
     </div>
   )
 }
