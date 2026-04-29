@@ -54,7 +54,7 @@ export function MapView({ restaurants }: MapViewProps) {
 
       <Link
         href="/rankings"
-        className="glass absolute left-3 top-[68px] z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium tracking-[0.04em] text-ink shadow-sm transition-all hover:bg-white"
+        className="glass absolute left-3 top-[68px] z-10 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium tracking-[0.04em] text-ink shadow-sm transition-all hover:ring-1 hover:ring-ink/15"
       >
         <Trophy size={12} strokeWidth={2} className="text-gold-500" />
         <span className="uppercase">Top suburbs</span>

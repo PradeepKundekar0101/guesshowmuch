@@ -32,24 +32,24 @@ function tierFor(price: number): Tier {
   return "premium"
 }
 
-// Cuisine families → small accent-dot color for at-a-glance variety.
-const CUISINE_DOT: Record<string, string> = {
-  Vietnamese: "#0ea5e9",
-  Thai: "#0ea5e9",
-  Japanese: "#06b6d4",
-  Chinese: "#ef4444",
-  Korean: "#dc2626",
-  Malaysian: "#f59e0b",
-  Taiwanese: "#0ea5e9",
-  "Asian Fusion": "#0ea5e9",
-  Indian: "#f97316",
-  "Middle Eastern": "#f59e0b",
-  Mexican: "#ef4444",
-  Italian: "#16a34a",
-  Greek: "#3b82f6",
-  Australian: "#a78bfa",
-  Vegetarian: "#22c55e",
-  Other: "#a78bfa",
+// Cuisine → emoji for at-a-glance variety (replaces colored accent dot).
+const CUISINE_EMOJI: Record<string, string> = {
+  Vietnamese: "🍜",
+  Thai: "🌶️",
+  Japanese: "🍣",
+  Chinese: "🥟",
+  Korean: "🍚",
+  Malaysian: "🍛",
+  Taiwanese: "🧋",
+  "Asian Fusion": "🥢",
+  Indian: "🍛",
+  "Middle Eastern": "🥙",
+  Mexican: "🌮",
+  Italian: "🍕",
+  Greek: "🫒",
+  Australian: "🥧",
+  Vegetarian: "🥬",
+  Other: "🍽️",
 }
 
 const STAR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.94 6.32 6.96.73-5.21 4.7 1.49 6.84L12 17.78l-6.18 3.31 1.49-6.84L2.1 9.55l6.96-.73L12 2.5z"/></svg>`
@@ -62,9 +62,10 @@ export function createPricePinElement(
   pinType: string = "standard",
   cuisineType: string | null = null
 ): HTMLElement {
-  // pin_type override colors (hot deal / featured / top rated take precedence)
+  // pin_type overrides (featured / hot_deal use icon strip; top_rated uses purple theme + cuisine emoji)
   let theme = TIER_COLORS[tierFor(price)]
-  let accentBg = cuisineType ? CUISINE_DOT[cuisineType] ?? "#9ca3af" : "#9ca3af"
+  let accentBg = "#9ca3af"
+  const cuisineEmoji = cuisineType ? CUISINE_EMOJI[cuisineType] ?? "🍽️" : "🍽️"
   let accentIcon: "star" | "flame" | null = null
 
   if (pinType === "featured") {
@@ -77,7 +78,6 @@ export function createPricePinElement(
     accentIcon = "flame"
   } else if (pinType === "top_rated") {
     theme = { bg: "#3a2360", fg: "#f0eafe", ring: "rgba(255,255,255,0.9)" }
-    accentBg = "#a78bfa"
   }
 
   const wrapper = document.createElement("div")
@@ -123,17 +123,20 @@ export function createPricePinElement(
     accent.innerHTML = accentIcon === "star" ? STAR_SVG : FLAME_SVG
     pin.appendChild(accent)
   } else {
-    const dot = document.createElement("div")
-    dot.style.cssText = `
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: ${accentBg};
+    const emojiCell = document.createElement("div")
+    emojiCell.style.cssText = `
+      display: flex;
+      align-items: center;
+      justify-content: center;
       align-self: center;
-      margin-left: 9px;
-      box-shadow: 0 0 0 2px ${theme.bg};
+      margin-left: 6px;
+      font-size: 13px;
+      line-height: 1;
+      filter: drop-shadow(0 0 1px ${theme.bg});
     `
-    pin.appendChild(dot)
+    emojiCell.textContent = cuisineEmoji
+    emojiCell.setAttribute("aria-hidden", "true")
+    pin.appendChild(emojiCell)
   }
 
   const label = document.createElement("div")

@@ -72,12 +72,11 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   }, [])
 
   return (
-    <div className="absolute left-3 right-3 top-3 z-10">
+    <div className="absolute left-3 top-3 right-16 z-10">
       <div className="relative">
         <div
-          className={`glass flex items-center gap-2.5 rounded-full px-4 py-2.5 shadow-[0_4px_20px_rgba(20,20,23,0.06)] transition-all ${
-            focused ? "ring-1 ring-ink/15" : ""
-          }`}
+          className={`glass flex items-center gap-2.5 rounded-full px-4 py-2.5 shadow-[0_4px_20px_rgba(20,20,23,0.06)] transition-all ${focused ? "ring-1 ring-ink/15" : ""
+            }`}
         >
           <Search size={15} className="shrink-0 text-ink-soft" strokeWidth={2} />
           <input
