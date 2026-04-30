@@ -6,18 +6,15 @@ import { getDealVote, setDealVote } from "@/lib/utils/local-storage"
 
 type DealVoteBarProps = {
   dealId: string
-  initialScore: number
   initialUpCount: number
   initialDownCount: number
 }
 
 export function DealVoteBar({
   dealId,
-  initialScore,
   initialUpCount,
   initialDownCount,
 }: DealVoteBarProps) {
-  const [score, setScore] = useState(initialScore)
   const [up, setUp] = useState(initialUpCount)
   const [down, setDown] = useState(initialDownCount)
   const [voting, setVoting] = useState(false)
@@ -46,7 +43,6 @@ export function DealVoteBar({
       })
       if (res.ok) {
         const data = await res.json()
-        setScore(data.vote_score)
         if (typeof data.up_count === "number") setUp(data.up_count)
         if (typeof data.down_count === "number") setDown(data.down_count)
         setDealVote(dealId, direction)
@@ -114,7 +110,6 @@ export function DealVoteBar({
           fill={currentVote === "down" ? "currentColor" : "none"}
         />
       </button>
-      <span className="sr-only">Net score {score}</span>
     </div>
   )
 }
