@@ -36,7 +36,7 @@ export function BookmarkButton({ restaurantId, size = "md" }: BookmarkButtonProp
         animating ? "scale-90" : "scale-100"
       } ${
         saved
-          ? "border-ink bg-ink text-paper"
+          ? "border-brand bg-brand text-white"
           : "border-rule bg-surface text-ink-soft hover:border-ink hover:text-ink"
       }`}
       aria-label={saved ? "Remove bookmark" : "Save restaurant"}

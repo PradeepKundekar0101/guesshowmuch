@@ -59,7 +59,7 @@ export function CommentForm({ restaurantId }: CommentFormProps) {
       <button
         type="submit"
         disabled={loading || !content.trim()}
-        className="shrink-0 rounded-full bg-ink px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-40"
+        className="shrink-0 rounded-full bg-brand px-4 py-2.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-white transition-all hover:bg-brand-hover disabled:opacity-40"
       >
         Post
       </button>

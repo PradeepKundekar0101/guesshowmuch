@@ -41,7 +41,7 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
               onClick={() => handlePresetClick(preset)}
               className={`price-num rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-tight transition-all ${
                 activePreset === preset
-                  ? "bg-ink text-paper"
+                  ? "bg-brand text-white"
                   : "bg-paper-dim text-ink-soft hover:bg-rule"
               }`}
             >
@@ -72,19 +72,19 @@ export function PriceFilter({ value, onChange }: PriceFilterProps) {
 
       <div className="mt-1 flex items-center justify-between text-[9px] font-semibold uppercase tracking-[0.1em] text-ink-muted">
         <span className="inline-flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-pin-steal" />
           Steal ≤$5
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-ink" />
+          <span className="h-1.5 w-1.5 rounded-full bg-pin-good" />
           $5–10
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-cinnabar-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-pin-ok" />
           $10–15
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+          <span className="h-1.5 w-1.5 rounded-full bg-pin-premium" />
           $15+
         </span>
       </div>

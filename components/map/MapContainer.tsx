@@ -149,7 +149,7 @@ export function MapContainer({
 
       <button
         onClick={handleRecenter}
-        className="glass absolute bottom-56 right-3 flex h-11 w-11 items-center justify-center rounded-full text-ink shadow-[0_4px_18px_rgba(20,20,23,0.1)] transition-all hover:scale-105 active:scale-95"
+        className="glass absolute bottom-56 right-3 flex h-11 w-11 items-center justify-center rounded-full text-brand shadow-[0_4px_18px_rgba(255,80,0,0.12)] ring-1 ring-brand/15 transition-all hover:scale-105 hover:bg-brand-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand active:scale-95"
         aria-label="Re-center on my location"
       >
         <svg

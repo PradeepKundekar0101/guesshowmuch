@@ -91,7 +91,7 @@ export function CsvImportForm() {
         </div>
         <button
           type="submit"
-          className="w-full rounded-full bg-ink py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 active:scale-[0.99]"
+          className="w-full rounded-full bg-brand py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-white transition-all hover:bg-brand-hover active:scale-[0.99]"
         >
           Unlock
         </button>
@@ -109,7 +109,7 @@ export function CsvImportForm() {
           type="file"
           accept=".csv"
           onChange={handleFileChange}
-          className="w-full text-sm text-ink-soft file:mr-4 file:rounded-full file:border-0 file:bg-ink file:px-4 file:py-2 file:text-[12px] file:font-semibold file:uppercase file:tracking-[0.06em] file:text-paper hover:file:bg-ink/85"
+          className="w-full text-sm text-ink-soft file:mr-4 file:rounded-full file:border-0 file:bg-brand file:px-4 file:py-2 file:text-[12px] file:font-semibold file:uppercase file:tracking-[0.06em] file:text-white hover:file:bg-brand-hover"
         />
         <p className="mt-1.5 text-[11px] leading-relaxed text-ink-muted">
           Format: name, cuisine_type, address, suburb, city, latitude,
@@ -158,7 +158,7 @@ export function CsvImportForm() {
         <button
           onClick={handleImport}
           disabled={loading}
-          className="w-full rounded-full bg-ink py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-50"
+          className="w-full rounded-full bg-brand py-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-white transition-all hover:bg-brand-hover disabled:opacity-50"
         >
           {loading ? "Importing…" : `Import ${preview.length} restaurants`}
         </button>

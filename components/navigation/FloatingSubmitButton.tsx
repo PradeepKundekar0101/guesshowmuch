@@ -5,7 +5,7 @@ export function FloatingSubmitButton() {
   return (
     <Link
       href="/submit"
-      className="group absolute bottom-32 right-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-ink text-paper shadow-[0_6px_20px_rgba(20,20,23,0.25)] transition-all hover:scale-105 hover:shadow-[0_8px_28px_rgba(20,20,23,0.35)] active:scale-95"
+      className="group absolute bottom-32 right-3 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white shadow-[0_8px_24px_rgba(255,80,0,0.42)] transition-all hover:scale-105 hover:bg-brand-hover hover:shadow-[0_10px_30px_rgba(255,80,0,0.5)] active:scale-95"
       aria-label="Submit a restaurant"
     >
       <Plus

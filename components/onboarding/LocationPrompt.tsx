@@ -40,8 +40,8 @@ export function LocationPrompt() {
             Step 02 · Location
           </p>
 
-          <div className="mt-10 flex h-20 w-20 items-center justify-center rounded-full border border-rule bg-surface">
-            <MapPin size={28} strokeWidth={1.5} className="text-ink" />
+          <div className="mt-10 flex h-20 w-20 items-center justify-center rounded-full border border-rule bg-brand-soft">
+            <MapPin size={28} strokeWidth={1.75} className="text-brand" />
           </div>
 
           <h2 className="mt-7 font-display text-[42px] leading-[0.95] tracking-tight text-ink">
@@ -49,10 +49,10 @@ export function LocationPrompt() {
             <br />
             <em>near you</em>
           </h2>
-          <div className="mt-5 h-px w-12 bg-ink" />
+          <div className="mt-5 h-px w-12 rounded-full bg-brand" />
           <p className="mt-5 max-w-[300px] text-[14px] leading-relaxed text-ink-soft">
-            Allow location access so we can centre the map on where you are
-            right now and surface the cheapest food close by.
+            Let us plonk you on the map so the nearest bargain feeds float to the
+            top.
           </p>
 
           <ul className="mt-7 space-y-2.5">
@@ -64,7 +64,7 @@ export function LocationPrompt() {
                 <Check
                   size={14}
                   strokeWidth={2}
-                  className="mt-0.5 shrink-0 text-emerald-500"
+                  className="mt-0.5 shrink-0 text-brand"
                 />
                 <span>{text}</span>
               </li>
@@ -85,12 +85,12 @@ export function LocationPrompt() {
           <button
             onClick={handleAllow}
             disabled={requesting}
-            className="group flex w-full items-center justify-between rounded-full bg-ink px-6 py-4 text-paper transition-all hover:bg-ink/90 disabled:opacity-50 active:scale-[0.99]"
+            className="group flex w-full items-center justify-between rounded-full bg-brand px-6 py-4 text-white transition-all hover:bg-brand-hover disabled:opacity-50 active:scale-[0.99]"
           >
             <span className="text-[14px] font-semibold tracking-tight">
               {requesting ? "Requesting…" : "Allow location"}
             </span>
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:translate-x-0.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-brand transition-transform group-hover:translate-x-0.5">
               <ArrowRight size={15} strokeWidth={2} />
             </span>
           </button>

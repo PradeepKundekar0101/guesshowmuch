@@ -33,7 +33,7 @@ export function SuburbRankings({ rankings }: SuburbRankingsProps) {
           className="overflow-hidden rounded-2xl border border-rule bg-surface"
         >
           <header className="flex items-center gap-4 border-b border-rule bg-paper-dim/60 px-4 py-3.5">
-            <span className="price-num flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-[13px] font-semibold text-paper">
+            <span className="price-num flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-[13px] font-semibold text-white">
               {String(index + 1).padStart(2, "0")}
             </span>
             <div className="min-w-0 flex-1">

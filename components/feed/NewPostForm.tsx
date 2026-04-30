@@ -118,7 +118,7 @@ export function NewPostForm({
       <button
         type="submit"
         disabled={loading || !content.trim()}
-        className="mt-3 w-full rounded-full bg-ink py-2.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-ink/90 disabled:opacity-40"
+        className="mt-3 w-full rounded-full bg-brand py-2.5 text-[13px] font-semibold uppercase tracking-[0.06em] text-white transition-all hover:bg-brand-hover disabled:opacity-40"
       >
         {loading ? "Posting…" : "Post to feed"}
       </button>

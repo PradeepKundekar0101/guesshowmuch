@@ -2,30 +2,37 @@
 @import "mapbox-gl/dist/mapbox-gl.css";
 
 /*
-  Design system — "Editorial Guide"
-  A typography-led, paper-warm aesthetic for a local food guide.
-  Display: Instrument Serif. UI: Geist. Numerals: JetBrains Mono.
+  Guess How Much — warm, community-first chrome. Brand (#FF6900) + Roboto.
 */
 
 @theme {
-  --font-display: var(--font-instrument), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo,
-    Consolas, monospace;
+  --font-display: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
 
-  /* Paper & ink */
-  --color-paper: #faf7f0;
-  --color-paper-dim: #f3eee2;
+  /* Map price-tier legend / pins (mirror lib/constants/mapPins.ts) */
+  --color-pin-steal: #ffb088;
+  --color-pin-good: #ff9a52;
+  --color-pin-ok: #ff6900;
+  --color-pin-premium: #d94e00;
+
+  --color-brand: #ff6900;
+  --color-brand-hover: #e85f00;
+  --color-brand-soft: #fff0e8;
+  --color-brand-muted: #ffb380;
+
+  /* Warm paper */
+  --color-paper: #fff8f4;
+  --color-paper-dim: #ffefe6;
   --color-surface: #ffffff;
-  --color-ink: #16151a;
-  --color-ink-soft: #4a4a52;
-  --color-ink-muted: #8c8b92;
-  --color-ink-faint: #c9c6bd;
-  --color-rule: #e6e1d4;
-  --color-rule-strong: #d4cfbe;
+  --color-ink: #2c1810;
+  --color-ink-soft: #5c4034;
+  --color-ink-muted: #957a6e;
+  --color-ink-faint: #d4c9c3;
+  --color-rule: #f0e4da;
+  --color-rule-strong: #e0cfc0;
 
-  /* Refined emerald (keeps existing class names valid, deeper palette) */
+  /* Positive / verified (votes, confirmations) — keep green for semantics */
   --color-emerald-50: #ecf6f0;
   --color-emerald-100: #d4ebde;
   --color-emerald-200: #abd5be;
@@ -62,7 +69,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "ss01", "cv11", "ss03";
+    font-feature-settings: "kern" 1;
   }
 
   body {
@@ -71,26 +78,28 @@
   }
 
   ::selection {
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-brand-soft);
+    color: var(--color-ink);
   }
 
-  /* Editorial display headlines */
+  /* Strong display = Roboto heavy (headlines stay loud without a second font) */
   .font-display {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
-    font-feature-settings: "liga", "dlig", "kern";
+    letter-spacing: -0.03em;
+    font-weight: 900;
+    font-feature-settings: "liga", "kern";
   }
 
   .font-mono {
     font-family: var(--font-mono);
-    font-feature-settings: "tnum", "zero";
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 
   /* Tabular price treatments */
   .price-num {
-    font-family: var(--font-mono);
-    font-feature-settings: "tnum", "zero";
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
     letter-spacing: -0.01em;
   }
 
@@ -238,11 +247,11 @@ input[type="range"].editorial::-webkit-slider-thumb {
   appearance: none;
   height: 16px;
   width: 16px;
-  background: var(--color-ink);
+  background: var(--color-brand);
   border-radius: 50%;
   margin-top: -7px;
   border: 2px solid white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 6px rgba(255, 80, 0, 0.35);
   transition: transform 0.15s ease;
 }
 input[type="range"].editorial::-webkit-slider-thumb:hover {
@@ -251,10 +260,10 @@ input[type="range"].editorial::-webkit-slider-thumb:hover {
 input[type="range"].editorial::-moz-range-thumb {
   height: 16px;
   width: 16px;
-  background: var(--color-ink);
+  background: var(--color-brand);
   border-radius: 50%;
   border: 2px solid white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 6px rgba(255, 80, 0, 0.35);
 }
 
 /* Hide arrows on number inputs in WebKit */

@@ -25,7 +25,7 @@ export default async function DealsPage() {
             </div>
             <Link
               href="/deals/submit"
-              className="inline-flex shrink-0 items-center gap-1 rounded-full bg-ink px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-paper transition-all hover:bg-cinnabar-500 active:scale-95"
+              className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.06em] text-white transition-all hover:bg-brand-hover active:scale-95"
             >
               <Plus size={12} strokeWidth={2.5} />
               Add

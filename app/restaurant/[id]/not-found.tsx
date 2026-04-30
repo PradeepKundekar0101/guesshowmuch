@@ -15,7 +15,7 @@ export default function RestaurantNotFound() {
       </p>
       <Link
         href="/"
-        className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-ink px-5 py-2.5 text-[13px] font-semibold tracking-tight text-paper transition-all hover:bg-ink/90 active:scale-[0.98]"
+        className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-[13px] font-semibold tracking-tight text-white transition-all hover:bg-brand-hover active:scale-[0.98]"
       >
         <ArrowLeft size={14} strokeWidth={2} />
         Back to the map

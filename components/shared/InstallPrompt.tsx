@@ -72,32 +72,38 @@ export function InstallPrompt() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-3"
+      className="pointer-events-none fixed inset-x-0 z-80 flex justify-center px-3"
       style={{
         bottom: "calc(64px + env(safe-area-inset-bottom) + 12px)",
       }}
     >
-      <div className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-rule bg-ink px-4 py-3 text-paper shadow-[0_12px_40px_rgba(20,20,23,0.35)] animate-rise-in">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-paper/10">
+      {/* Solid fill via inline style: map markers/canvas paint above Tailwind-layered
+          surfaces in some cases, and `bg-brand` can composite like glass if the
+          utility does not attach—map roads/pins show through otherwise. */}
+      <div
+        className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-white/25 px-4 py-3 text-white shadow-[0_14px_42px_rgba(255,85,0,0.45)] animate-rise-in"
+        style={{ backgroundColor: "#ff6900" }}
+      >
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
           <Download size={16} strokeWidth={1.75} />
         </div>
         <div className="min-w-0 flex-1 leading-tight">
           <p className="text-[13px] font-semibold tracking-tight">
             Install Guess How Much
           </p>
-          <p className="mt-0.5 text-[11px] text-paper/60">
+          <p className="mt-0.5 text-[11px] text-white/80">
             Add to your home screen for one-tap access.
           </p>
         </div>
         <button
           onClick={handleInstall}
-          className="shrink-0 rounded-full bg-paper px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-ink transition-all hover:bg-paper/90 active:scale-[0.97]"
+          className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-brand transition-all hover:bg-brand-soft active:scale-[0.97]"
         >
           Install
         </button>
         <button
           onClick={handleDismiss}
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-paper/60 transition-colors hover:bg-paper/10 hover:text-paper"
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white/65 transition-colors hover:bg-white/15 hover:text-white"
           aria-label="Dismiss"
         >
           <X size={14} strokeWidth={2} />

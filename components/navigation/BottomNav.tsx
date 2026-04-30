@@ -34,7 +34,7 @@ export function BottomNav() {
               <span
                 className={`flex h-7 w-12 items-center justify-center rounded-full transition-all ${
                   isActive
-                    ? "bg-ink text-paper"
+                    ? "bg-brand text-white"
                     : "text-ink-muted group-hover:text-ink"
                 }`}
               >
@@ -45,7 +45,7 @@ export function BottomNav() {
               </span>
               <span
                 className={`text-[10px] tracking-[0.08em] uppercase transition-colors ${
-                  isActive ? "font-semibold text-ink" : "text-ink-muted"
+                  isActive ? "font-semibold text-brand" : "text-ink-muted"
                 }`}
               >
                 {tab.label}

@@ -142,7 +142,7 @@ export function SubmitForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-full bg-ink py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-paper transition-all hover:bg-ink/90 disabled:opacity-50"
+        className="w-full rounded-full bg-brand py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-white transition-all hover:bg-brand-hover disabled:opacity-50"
       >
         {loading ? "Submitting…" : "Submit restaurant"}
       </button>

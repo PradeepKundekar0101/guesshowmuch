@@ -65,14 +65,14 @@ export function CuisineFilter({
           onClick={() => onChange(null)}
           className={`shrink-0 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition-all ${
             value === null
-              ? "border-ink bg-ink text-paper"
+              ? "border-brand bg-brand text-white"
               : "glass border-transparent text-ink-soft hover:text-ink"
           }`}
         >
           All
           <span
             className={`price-num ml-1.5 ${
-              value === null ? "text-paper/70" : "text-ink-muted"
+              value === null ? "text-white/80" : "text-ink-muted"
             }`}
           >
             {total}
@@ -87,7 +87,7 @@ export function CuisineFilter({
               onClick={() => onChange(isActive ? null : c.name)}
               className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold tracking-tight transition-all ${
                 isActive
-                  ? "border-ink bg-ink text-paper"
+                  ? "border-brand bg-brand text-white"
                   : "glass border-transparent text-ink-soft hover:text-ink"
               }`}
             >
@@ -98,7 +98,7 @@ export function CuisineFilter({
               {c.name}
               <span
                 className={`price-num ${
-                  isActive ? "text-paper/70" : "text-ink-muted"
+                  isActive ? "text-white/80" : "text-ink-muted"
                 }`}
               >
                 {c.count}

@@ -80,7 +80,7 @@ export function RestaurantPreview({ restaurant, onClose }: RestaurantPreviewProp
 
           <Link
             href={`/restaurant/${restaurant.id}`}
-            className="mt-4 flex items-center justify-center gap-1.5 rounded-full bg-ink py-3 text-[13px] font-semibold tracking-tight text-paper transition-all hover:bg-ink/90 active:scale-[0.99]"
+            className="mt-4 flex items-center justify-center gap-1.5 rounded-full bg-brand py-3 text-[13px] font-semibold tracking-tight text-white transition-all hover:bg-brand-hover active:scale-[0.99]"
           >
             View full listing
             <ChevronRight size={15} strokeWidth={2} />

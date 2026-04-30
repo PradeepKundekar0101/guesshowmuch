@@ -1,26 +1,12 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Instrument_Serif, JetBrains_Mono } from "next/font/google"
+import { Roboto } from "next/font/google"
 import "./globals.css"
 import { InstallPrompt } from "@/components/shared/InstallPrompt"
 
-const geist = Geist({
-  variable: "--font-geist",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
-  display: "swap",
-})
-
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-})
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "700", "900"],
   display: "swap",
 })
 
@@ -69,8 +55,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf7f0" },
-    { media: "(prefers-color-scheme: dark)", color: "#16151a" },
+    { media: "(prefers-color-scheme: light)", color: "#fff5ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#1c120c" },
   ],
 }
 
@@ -80,10 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geist.variable} ${instrument.variable} ${jetbrains.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${roboto.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         {children}
         <InstallPrompt />

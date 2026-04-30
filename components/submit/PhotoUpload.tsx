@@ -61,7 +61,7 @@ export function PhotoUpload({ onUpload }: PhotoUploadProps) {
               onUpload("")
               if (inputRef.current) inputRef.current.value = ""
             }}
-            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-ink/70 text-paper backdrop-blur transition-colors hover:bg-ink"
+            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-brand/85 text-white backdrop-blur transition-colors hover:bg-brand-hover"
             aria-label="Remove photo"
           >
             <X size={14} strokeWidth={2} />
