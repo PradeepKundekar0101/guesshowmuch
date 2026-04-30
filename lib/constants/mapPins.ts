@@ -6,14 +6,14 @@ export type MapPriceTier = "steal" | "good" | "ok" | "premium"
 
 const RING = "rgba(255,250,246,0.95)"
 
-/** Standard pins: bargain warmth anchored to brand orange (#FF6900). */
+/** Standard pins: bargain warmth anchored to brand orange (#FA4E3F). */
 export const MAP_STANDARD_TIER: Record<
   MapPriceTier,
   { bg: string; fg: string; ring: string }
 > = {
   steal: { bg: "#ffb088", fg: "#2f1608", ring: RING },
   good: { bg: "#ff9a52", fg: "#291207", ring: RING },
-  ok: { bg: "#FF6900", fg: "#fffaf8", ring: RING },
+  ok: { bg: "#FA4E3F", fg: "#fffaf8", ring: RING },
   premium: { bg: "#d94e00", fg: "#fffaf8", ring: RING },
 }
 

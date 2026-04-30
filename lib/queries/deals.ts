@@ -21,6 +21,9 @@ export type Deal = {
   photo_url: string | null
   is_active: boolean
   created_at: string
+  vote_score: number
+  up_count: number
+  down_count: number
   restaurant: DealRestaurant | null
 }
 
@@ -35,6 +38,9 @@ const DEAL_SELECT = `
   photo_url,
   is_active,
   created_at,
+  vote_score,
+  up_count,
+  down_count,
   restaurant:restaurants (
     id,
     name,
@@ -53,6 +59,7 @@ export async function getActiveDeals(): Promise<Deal[]> {
     .select(DEAL_SELECT)
     .eq("is_active", true)
     .gt("expires_at", new Date().toISOString())
+    .order("vote_score", { ascending: false })
     .order("expires_at", { ascending: true })
 
   if (error) {

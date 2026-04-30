@@ -82,7 +82,7 @@ export function InstallPrompt() {
           utility does not attach—map roads/pins show through otherwise. */}
       <div
         className="pointer-events-auto flex w-full max-w-md items-center gap-3 rounded-2xl border border-white/25 px-4 py-3 text-white shadow-[0_14px_42px_rgba(255,85,0,0.45)] animate-rise-in"
-        style={{ backgroundColor: "#ff6900" }}
+        style={{ backgroundColor: "#FA4E3F" }}
       >
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
           <Download size={16} strokeWidth={1.75} />

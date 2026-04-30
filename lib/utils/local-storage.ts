@@ -18,6 +18,26 @@ export function getVote(restaurantId: string): "up" | "down" | null {
   return getVotes()[restaurantId] || null
 }
 
+// Deal votes: { [dealId]: "up" | "down" } (kept separate so deal/restaurant ids can collide)
+export function getDealVotes(): Record<string, "up" | "down"> {
+  if (typeof window === "undefined") return {}
+  try {
+    return JSON.parse(localStorage.getItem("deal_votes") || "{}")
+  } catch {
+    return {}
+  }
+}
+
+export function setDealVote(dealId: string, direction: "up" | "down") {
+  const votes = getDealVotes()
+  votes[dealId] = direction
+  localStorage.setItem("deal_votes", JSON.stringify(votes))
+}
+
+export function getDealVote(dealId: string): "up" | "down" | null {
+  return getDealVotes()[dealId] || null
+}
+
 // Bookmarks: string[]
 export function getBookmarks(): string[] {
   if (typeof window === "undefined") return []

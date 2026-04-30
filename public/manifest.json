@@ -9,7 +9,7 @@
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#fff8f4",
-  "theme_color": "#ff6900",
+  "theme_color": "#FA4E3F",
   "lang": "en-AU",
   "dir": "ltr",
   "categories": ["food", "lifestyle", "travel"],

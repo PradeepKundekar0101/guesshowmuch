@@ -17,10 +17,11 @@ export default async function DealsPage() {
             <div>
               <p className="eyebrow">Hot today · {deals.length} live</p>
               <h1 className="mt-1 font-display text-[34px] leading-[0.95] tracking-tight text-ink">
-                Deals on <em className="text-cinnabar-500">now</em>
+                Deals on <em className="text-brand italic">now</em>
               </h1>
               <p className="mt-1.5 max-w-[280px] text-[13px] leading-snug text-ink-soft">
-                Time-limited specials posted by the community.
+                Posted by neighbours. Vote up the legit bargains, down the
+                duds.
               </p>
             </div>
             <Link

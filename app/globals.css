@@ -2,7 +2,7 @@
 @import "mapbox-gl/dist/mapbox-gl.css";
 
 /*
-  Guess How Much — warm, community-first chrome. Brand (#FF6900) + Roboto.
+  Guess How Much — warm, community-first chrome. Brand (#FA4E3F) + Roboto.
 */
 
 @theme {
@@ -13,10 +13,10 @@
   /* Map price-tier legend / pins (mirror lib/constants/mapPins.ts) */
   --color-pin-steal: #ffb088;
   --color-pin-good: #ff9a52;
-  --color-pin-ok: #ff6900;
+  --color-pin-ok: #FA4E3F;
   --color-pin-premium: #d94e00;
 
-  --color-brand: #ff6900;
+  --color-brand: #FA4E3F;
   --color-brand-hover: #e85f00;
   --color-brand-soft: #fff0e8;
   --color-brand-muted: #ffb380;
