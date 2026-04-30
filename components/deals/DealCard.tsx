@@ -119,7 +119,6 @@ export function DealCard({ deal }: DealCardProps) {
       <div className="border-t border-rule px-3.5 py-2.5">
         <DealVoteBar
           dealId={deal.id}
-          initialScore={deal.vote_score ?? 0}
           initialUpCount={deal.up_count ?? 0}
           initialDownCount={deal.down_count ?? 0}
         />
